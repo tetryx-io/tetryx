@@ -20,20 +20,20 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v18
         continue-on-error: true # Self-hosted runners already have Nix installed
 
-      - name: Install Attic
+      - name: Install Tetryx
         run: |
-          if ! command -v attic &> /dev/null; then
-            ./.github/install-attic-ci.sh
+          if ! command -v tetryx &> /dev/null; then
+            ./.github/install-tetryx-ci.sh
           fi
 
-      - name: Configure Attic
+      - name: Configure Tetryx
         run: |
-          : "${ATTIC_SERVER:=https://staging.attic.rs/}"
-          : "${ATTIC_CACHE:=attic-ci}"
+          : "${ATTIC_SERVER:=https://staging.tetryx.rs/}"
+          : "${ATTIC_CACHE:=tetryx-ci}"
           echo ATTIC_CACHE=$ATTIC_CACHE >>$GITHUB_ENV
           export PATH=$HOME/.nix-profile/bin:$PATH # FIXME
-          attic login --set-default ci "$ATTIC_SERVER" "$ATTIC_TOKEN"
-          attic use "$ATTIC_CACHE"
+          tetryx login --set-default ci "$ATTIC_SERVER" "$ATTIC_TOKEN"
+          tetryx use "$ATTIC_CACHE"
         env:
           ATTIC_SERVER: ${{ secrets.ATTIC_SERVER }}
           ATTIC_CACHE: ${{ secrets.ATTIC_CACHE }}

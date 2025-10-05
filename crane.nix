@@ -1,5 +1,5 @@
 # For distribution from this repository as well as CI, we use Crane to build
-# Attic.
+# Tetryx.
 
 { stdenv
 , lib
@@ -60,7 +60,7 @@ let
   extraArgs = crossArgs // extraPackageArgs;
 
   cargoArtifacts = craneLib.buildDepsOnly ({
-    pname = "attic";
+    pname = "tetryx";
     inherit src version nativeBuildInputs buildInputs;
 
     # By default it's "use-symlink", which causes Crane's `inheritCargoArtifactsHook`
@@ -77,32 +77,32 @@ let
   }: let
     cargoPackageArgs = map (p: "-p ${p}") packages;
   in craneLib.buildPackage ({
-    pname = "attic";
+    pname = "tetryx";
     inherit src version nativeBuildInputs buildInputs cargoArtifacts;
 
-    ATTIC_DISTRIBUTOR = "attic";
+    ATTIC_DISTRIBUTOR = "tetryx";
 
-    # See comment in `attic-tests`
+    # See comment in `tetryx-tests`
     doCheck = false;
 
     cargoExtraArgs = lib.concatStringsSep " " cargoPackageArgs;
 
     postInstall = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
-      if [[ -f $out/bin/attic ]]; then
-        installShellCompletion --cmd attic \
-          --bash <($out/bin/attic gen-completions bash) \
-          --zsh <($out/bin/attic gen-completions zsh) \
-          --fish <($out/bin/attic gen-completions fish)
+      if [[ -f $out/bin/tetryx ]]; then
+        installShellCompletion --cmd tetryx \
+          --bash <($out/bin/tetryx gen-completions bash) \
+          --zsh <($out/bin/tetryx gen-completions zsh) \
+          --fish <($out/bin/tetryx gen-completions fish)
       fi
     '';
 
     meta = with lib; {
       description = "Multi-tenant Nix binary cache system";
-      homepage = "https://github.com/zhaofengli/attic";
+      homepage = "https://github.com/zhaofengli/tetryx";
       license = licenses.asl20;
       maintainers = with maintainers; [ zhaofengli ];
       platforms = platforms.linux ++ platforms.darwin;
-      mainProgram = "attic";
+      mainProgram = "tetryx";
     };
 
     passthru = {
@@ -110,35 +110,35 @@ let
     };
   } // extraArgs);
 
-  attic = mkAttic {
-    packages = ["attic-client" "attic-server"];
+  tetryx = mkAttic {
+    packages = ["tetryx-client" "tetryx-server"];
   };
 
   # Client-only package.
-  attic-client = mkAttic {
-    packages = ["attic-client"];
+  tetryx-client = mkAttic {
+    packages = ["tetryx-client"];
   };
 
   # Server-only package with fat LTO enabled.
   #
-  # Because of Cargo's feature unification, the common `attic` crate always
+  # Because of Cargo's feature unification, the common `tetryx` crate always
   # has the `nix_store` feature enabled if the client and server are built
   # together, leading to `atticd` linking against `libnixstore` as well. This
   # package is slimmer with more optimization.
   #
-  # We don't enable fat LTO in the default `attic` package since it
+  # We don't enable fat LTO in the default `tetryx` package since it
   # dramatically increases build time.
-  attic-server = craneLib.buildPackage ({
-    pname = "attic-server";
+  tetryx-server = craneLib.buildPackage ({
+    pname = "tetryx-server";
 
     # We don't pull in the common cargoArtifacts because the feature flags
     # and LTO configs are different
     inherit src version nativeBuildInputs buildInputs;
 
-    # See comment in `attic-tests`
+    # See comment in `tetryx-tests`
     doCheck = false;
 
-    cargoExtraArgs = "-p attic-server";
+    cargoExtraArgs = "-p tetryx-server";
 
     CARGO_PROFILE_RELEASE_LTO = "fat";
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS = "1";
@@ -148,12 +148,12 @@ let
     };
   } // extraArgs);
 
-  # Attic interacts with Nix directly and its tests require trusted-user access
+  # Tetryx interacts with Nix directly and its tests require trusted-user access
   # to nix-daemon to import NARs, which is not possible in the build sandbox.
   # In the CI pipeline, we build the test executable inside the sandbox, then
   # run it outside.
-  attic-tests = craneLib.mkCargoDerivation ({
-    pname = "attic-tests";
+  tetryx-tests = craneLib.mkCargoDerivation ({
+    pname = "tetryx-tests";
 
     inherit src version buildInputs cargoArtifacts;
 
@@ -176,5 +176,5 @@ let
     '';
   } // extraArgs);
 in {
-  inherit cargoArtifacts attic attic-client attic-server attic-tests;
+  inherit cargoArtifacts tetryx tetryx-client tetryx-server tetryx-tests;
 }

@@ -33,11 +33,11 @@ use tokio::task::{spawn, JoinHandle};
 use tokio::time;
 
 use crate::api::ApiClient;
-use attic::api::v1::cache_config::CacheConfig;
-use attic::api::v1::upload_path::{UploadPathNarInfo, UploadPathResult, UploadPathResultKind};
-use attic::cache::CacheName;
-use attic::error::AtticResult;
-use attic::nix_store::{NixStore, StorePath, StorePathHash, ValidPathInfo};
+use tetryx::api::v1::cache_config::CacheConfig;
+use tetryx::api::v1::upload_path::{UploadPathNarInfo, UploadPathResult, UploadPathResultKind};
+use tetryx::cache::CacheName;
+use tetryx::error::AtticResult;
+use tetryx::nix_store::{NixStore, StorePath, StorePathHash, ValidPathInfo};
 
 type JobSender = channel::Sender<ValidPathInfo>;
 type JobReceiver = channel::Receiver<ValidPathInfo>;
@@ -91,7 +91,7 @@ pub struct Pusher {
 /// Many store paths can be built in a short period of time, with each
 /// having a big closure. It can be very inefficient if we were to compute
 /// closure and query for missing paths for each individual path. This is
-/// especially true if we have a lot of remote builders (e.g., `attic watch-store`
+/// especially true if we have a lot of remote builders (e.g., `tetryx watch-store`
 /// running alongside a beefy Hydra instance).
 ///
 /// `PushSession` batches operations in order to minimize the number of

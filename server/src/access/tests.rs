@@ -1,6 +1,6 @@
 use super::*;
 
-use attic::cache::CacheName;
+use tetryx::cache::CacheName;
 
 macro_rules! cache {
     ($n:expr) => {
@@ -20,7 +20,7 @@ fn test_basic() {
       {
         "sub": "meow",
         "exp": 4102324986,
-        "https://jwt.attic.rs/v1": {
+        "https://jwt.tetryx.rs/v1": {
           "caches": {
             "cache-rw": {"r":1,"w":1},
             "cache-ro": {"r":1},

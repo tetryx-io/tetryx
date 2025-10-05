@@ -3,8 +3,8 @@ use std::io::Cursor;
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use futures::StreamExt;
 
-use attic::chunking::chunk_stream;
-use attic::testing::{get_fake_data, get_runtime};
+use tetryx::chunking::chunk_stream;
+use tetryx::testing::{get_fake_data, get_runtime};
 
 struct Parameters {
     min_size: u32,

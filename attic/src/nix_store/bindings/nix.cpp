@@ -8,7 +8,7 @@
 // Rust types directly where possible, so that the interfaces are
 // satisfying to use from the Rust side via cxx.rs.
 
-#include "attic/src/nix_store/bindings/nix.hpp"
+#include "tetryx/src/nix_store/bindings/nix.hpp"
 
 static std::mutex g_init_nix_mutex;
 static bool g_init_nix_done = false;

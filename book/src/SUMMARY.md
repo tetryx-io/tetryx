@@ -8,6 +8,6 @@
     - [Chunking](./admin-guide/chunking.md)
 - [FAQs](./faqs.md)
 - [Reference](./reference/README.md)
-    - [attic](./reference/attic-cli.md)
+    - [tetryx](./reference/tetryx-cli.md)
     - [atticd](./reference/atticd-cli.md)
     - [atticadm](./reference/atticadm-cli.md)

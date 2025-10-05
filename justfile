@@ -26,7 +26,7 @@ ci-build-wasm:
 	# https://github.com/rust-lang/rust/issues/122357
 	export RUST_MIN_STACK=16777216
 
-	pushd attic
+	pushd tetryx
 	cargo build --target wasm32-unknown-unknown --no-default-features -F chunking -F io
 	popd
 	pushd token
@@ -39,7 +39,7 @@ ci-unit-tests matrix:
 	set -euxo pipefail
 
 	system=$(nix-instantiate --eval -E 'builtins.currentSystem')
-	tests=$(nix build .#internalMatrix."$system".\"{{ matrix }}\".attic-tests --no-link --print-out-paths -L)
+	tests=$(nix build .#internalMatrix."$system".\"{{ matrix }}\".tetryx-tests --no-link --print-out-paths -L)
 	find "$tests/bin" -exec {} \;
 
 # (CI) Run rustfmt check

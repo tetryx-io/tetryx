@@ -15,8 +15,8 @@ allowed-hosts = []
 # API endpoint is synthesized from the client's `Host` header which may
 # be insecure.
 #
-# The API endpoint _must_ end with a slash (e.g., `https://domain.tld/attic/`
-# not `https://domain.tld/attic`).
+# The API endpoint _must_ end with a slash (e.g., `https://domain.tld/tetryx/`
+# not `https://domain.tld/tetryx`).
 #api-endpoint = "https://your.domain.tld/"
 
 # The maximum size of the upload info JSON, in bytes.

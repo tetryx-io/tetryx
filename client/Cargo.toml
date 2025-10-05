@@ -1,15 +1,15 @@
 [package]
-name = "attic-client"
+name = "tetryx-client"
 version = "0.1.0"
 edition = "2021"
 publish = false
 
 [[bin]]
-name = "attic"
+name = "tetryx"
 path = "src/main.rs"
 
 [dependencies]
-attic = { path = "../attic" }
+tetryx = { path = "../tetryx" }
 
 anyhow = "1.0.98"
 async-channel = "2.5.0"

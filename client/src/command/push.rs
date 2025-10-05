@@ -12,7 +12,7 @@ use crate::cache::{CacheName, CacheRef, ServerName};
 use crate::cli::Opts;
 use crate::config::Config;
 use crate::push::{PushConfig, PushSessionConfig, Pusher};
-use attic::nix_store::NixStore;
+use tetryx::nix_store::NixStore;
 
 /// Push closures to a binary cache.
 #[derive(Debug, Parser)]

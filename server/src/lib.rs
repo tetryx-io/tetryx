@@ -46,7 +46,7 @@ use tower_http::catch_panic::CatchPanicLayer;
 use tower_http::trace::TraceLayer;
 
 use access::http::{apply_auth, AuthState};
-use attic::cache::CacheName;
+use tetryx::cache::CacheName;
 use config::{Config, StorageConfig};
 use database::migration::{Migrator, MigratorTrait};
 use error::{ErrorKind, ServerError, ServerResult};
@@ -59,7 +59,7 @@ type RequestState = Arc<RequestStateInner>;
 /// Global server state.
 #[derive(Debug)]
 pub struct StateInner {
-    /// The Attic Server configuration.
+    /// The Tetryx Server configuration.
     config: Config,
 
     /// Handle to the database.
@@ -89,7 +89,7 @@ struct RequestStateInner {
 
     /// Whether the cache the client's interacting with is public.
     ///
-    /// This is purely informational and used to add the `X-Attic-Cache-Visibility`.
+    /// This is purely informational and used to add the `X-Tetryx-Cache-Visibility`.
     /// header in responses.
     public_cache: AtomicBool,
 }
@@ -169,7 +169,7 @@ impl StateInner {
 impl RequestStateInner {
     /// Returns the base API endpoint for clients.
     ///
-    /// The APIs encompass both the Attic API and the Nix binary
+    /// The APIs encompass both the Tetryx API and the Nix binary
     /// cache API.
     fn api_endpoint(&self) -> ServerResult<String> {
         if let Some(endpoint) = &self.api_endpoint {

@@ -15,7 +15,7 @@ pub(crate) fn get_router() -> Router {
         )
         .route("/_api/v1/upload-path", put(upload_path::upload_path))
         .route(
-            "/:cache/attic-cache-info",
+            "/:cache/tetryx-cache-info",
             get(cache_config::get_cache_config),
         )
         .route(

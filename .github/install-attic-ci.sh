@@ -34,35 +34,35 @@ in
 
 {
   "x86_64-linux" = (mkFakeDerivation {
-  name = "attic-static-x86_64-unknown-linux-musl-0.1.0";
+  name = "tetryx-static-x86_64-unknown-linux-musl-0.1.0";
   system = "x86_64-linux";
 } {
-  out = "/nix/store/qi9cixkq0pj60yw1y5l28hid7f53310i-attic-static-x86_64-unknown-linux-musl-0.1.0";
+  out = "/nix/store/qi9cixkq0pj60yw1y5l28hid7f53310i-tetryx-static-x86_64-unknown-linux-musl-0.1.0";
 }).out;
 
   "aarch64-linux" = (mkFakeDerivation {
-  name = "attic-0.1.0";
+  name = "tetryx-0.1.0";
   system = "aarch64-linux";
 } {
-  out = "/nix/store/ng1aykmyk7ayzrn69hlv4n4qzbywj5rk-attic-0.1.0";
+  out = "/nix/store/ng1aykmyk7ayzrn69hlv4n4qzbywj5rk-tetryx-0.1.0";
 }).out;
 
   "x86_64-darwin" = (mkFakeDerivation {
-  name = "attic-0.1.0";
+  name = "tetryx-0.1.0";
   system = "x86_64-darwin";
 } {
-  out = "/nix/store/zh35fhdyxnxzp1mjyla95g2yv2ayzc3f-attic-0.1.0";
+  out = "/nix/store/zh35fhdyxnxzp1mjyla95g2yv2ayzc3f-tetryx-0.1.0";
 }).out;
 
   "aarch64-darwin" = (mkFakeDerivation {
-  name = "attic-0.1.0";
+  name = "tetryx-0.1.0";
   system = "aarch64-darwin";
 } {
-  out = "/nix/store/z9i4grsf3h0wdlbhg95v6nanxiqx5xvp-attic-0.1.0";
+  out = "/nix/store/z9i4grsf3h0wdlbhg95v6nanxiqx5xvp-tetryx-0.1.0";
 }).out;
 
 }.${system}
 
 EOF
 
-nix-env --substituters "https://staging.attic.rs/attic-ci https://cache.nixos.org" --trusted-public-keys "attic-ci:U5Sey4mUxwBXM3iFapmP0/ogODXywKLRNgRPQpEXxbo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" -if "$expr"
+nix-env --substituters "https://staging.tetryx.rs/tetryx-ci https://cache.nixos.org" --trusted-public-keys "tetryx-ci:U5Sey4mUxwBXM3iFapmP0/ogODXywKLRNgRPQpEXxbo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" -if "$expr"

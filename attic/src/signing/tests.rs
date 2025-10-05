@@ -2,7 +2,7 @@ use super::*;
 
 #[test]
 fn test_generate_key() {
-    let keypair = NixKeypair::generate("attic-test").expect("Could not generate key");
+    let keypair = NixKeypair::generate("tetryx-test").expect("Could not generate key");
 
     let export_priv = keypair.export_keypair();
     let export_pub = keypair.export_public_key();
@@ -32,7 +32,7 @@ fn test_generate_key() {
 
 #[test]
 fn test_serde() {
-    let json = "\"attic-test:x326WFy/JUl+MQnN1u9NPdWQPBbcVn2mwoIqSLS3DmQqZ8qT8rBSxxEnyhtl3jDouBqodlyfq6F+HsVhbTYPMA==\"";
+    let json = "\"tetryx-test:x326WFy/JUl+MQnN1u9NPdWQPBbcVn2mwoIqSLS3DmQqZ8qT8rBSxxEnyhtl3jDouBqodlyfq6F+HsVhbTYPMA==\"";
 
     let keypair: NixKeypair = serde_json::from_str(json).expect("Could not deserialize keypair");
 
@@ -53,7 +53,7 @@ fn test_import_public_key() {
 
 #[test]
 fn test_signing() {
-    let keypair = NixKeypair::generate("attic-test").expect("Could not generate key");
+    let keypair = NixKeypair::generate("tetryx-test").expect("Could not generate key");
 
     let public = keypair.to_public_key();
 
@@ -64,5 +64,5 @@ fn test_signing() {
     keypair.verify(message, &signature).unwrap();
     public.verify(message, &signature).unwrap();
 
-    keypair.verify(message, "attic-test:lo9EfNIL4eGRuNh7DTbAAffWPpI2SlYC/8uP7JnhgmfRIUNGhSbFe8qEaKN0mFS02TuhPpXFPNtRkFcCp0hGAQ==").unwrap_err();
+    keypair.verify(message, "tetryx-test:lo9EfNIL4eGRuNh7DTbAAffWPpI2SlYC/8uP7JnhgmfRIUNGhSbFe8qEaKN0mFS02TuhPpXFPNtRkFcCp0hGAQ==").unwrap_err();
 }

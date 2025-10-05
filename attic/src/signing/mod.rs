@@ -124,7 +124,7 @@ impl NixKeypair {
     /// key and the public key, in that order.
     ///
     /// For example, it can look like:
-    ///     attic-test:msdoldbtlongtt0/xkzmcbqihd7yvy8iomajqhnkutsl3b1pyyyc0mgg2rs0ttzzuyuk9rb2zphvtpes71mlha==
+    ///     tetryx-test:msdoldbtlongtt0/xkzmcbqihd7yvy8iomajqhnkutsl3b1pyyyc0mgg2rs0ttzzuyuk9rb2zphvtpes71mlha==
     pub fn export_keypair(&self) -> String {
         format!("{}:{}", self.name, BASE64_STANDARD.encode(*self.keypair))
     }
@@ -132,7 +132,7 @@ impl NixKeypair {
     /// Returns the canonical representation of the public key.
     ///
     /// For example, it can look like:
-    ///     attic-test:C929acssgtJoINkUtLbc81GFJPUW9maR77TxEu9ZpRw=
+    ///     tetryx-test:C929acssgtJoINkUtLbc81GFJPUW9maR77TxEu9ZpRw=
     pub fn export_public_key(&self) -> String {
         format!("{}:{}", self.name, BASE64_STANDARD.encode(*self.keypair.pk))
     }
@@ -203,7 +203,7 @@ impl NixPublicKey {
     /// Returns the Nix-compatible textual representation of the public key.
     ///
     /// For example, it can look like:
-    ///     attic-test:C929acssgtJoINkUtLbc81GFJPUW9maR77TxEu9ZpRw=
+    ///     tetryx-test:C929acssgtJoINkUtLbc81GFJPUW9maR77TxEu9ZpRw=
     pub fn export(&self) -> String {
         format!("{}:{}", self.name, BASE64_STANDARD.encode(*self.public))
     }

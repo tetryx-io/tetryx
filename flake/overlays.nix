@@ -5,9 +5,9 @@
       cranePkgs = makeCranePkgs final;
     in {
       inherit (cranePkgs)
-        attic
-        attic-client
-        attic-server
+        tetryx
+        tetryx-client
+        tetryx-server
         ;
     };
   };

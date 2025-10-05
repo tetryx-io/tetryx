@@ -33,14 +33,14 @@ use crate::config::CompressionType;
 use crate::error::{ErrorKind, ServerError, ServerResult};
 use crate::narinfo::Compression;
 use crate::{RequestState, State};
-use attic::api::v1::upload_path::{
+use tetryx::api::v1::upload_path::{
     UploadPathNarInfo, UploadPathResult, UploadPathResultKind, ATTIC_NAR_INFO,
     ATTIC_NAR_INFO_PREAMBLE_SIZE,
 };
-use attic::chunking::chunk_stream;
-use attic::hash::Hash;
-use attic::io::{read_chunk_async, HashReader};
-use attic::util::Finally;
+use tetryx::chunking::chunk_stream;
+use tetryx::hash::Hash;
+use tetryx::io::{read_chunk_async, HashReader};
+use tetryx::util::Finally;
 
 use crate::database::entity::cache;
 use crate::database::entity::chunk::{self, ChunkState, Entity as Chunk};
@@ -131,7 +131,7 @@ pub(crate) async fn upload_path(
 
             serde_json::from_slice(&preamble).map_err(ServerError::request_error)?
         } else if let Some(nar_info_bytes) = headers.get(ATTIC_NAR_INFO) {
-            // Read from X-Attic-Nar-Info header
+            // Read from X-Tetryx-Nar-Info header
             serde_json::from_slice(nar_info_bytes.as_bytes()).map_err(ServerError::request_error)?
         } else {
             return Err(ErrorKind::RequestError(anyhow!("{} must be set", ATTIC_NAR_INFO)).into());

@@ -7,11 +7,11 @@ use crate::api::ApiClient;
 use crate::cache::CacheRef;
 use crate::cli::Opts;
 use crate::config::Config;
-use attic::api::v1::cache_config::{
+use tetryx::api::v1::cache_config::{
     CacheConfig, CreateCacheRequest, KeypairConfig, RetentionPeriodConfig,
 };
 
-/// Manage caches on an Attic server.
+/// Manage caches on an Tetryx server.
 #[derive(Debug, Parser)]
 pub struct Cache {
     #[clap(subcommand)]

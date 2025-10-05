@@ -17,7 +17,7 @@ let
   format = pkgs.formats.toml { };
 
   checkedConfigFile =
-    pkgs.runCommand "checked-attic-server.toml"
+    pkgs.runCommand "checked-tetryx-server.toml"
       {
         configFile = cfg.configFile;
       }
@@ -81,7 +81,7 @@ in
     services.atticd = {
       enable = lib.mkEnableOption "the atticd, the Nix Binary Cache server";
 
-      package = lib.mkPackageOption pkgs "attic-server" { };
+      package = lib.mkPackageOption pkgs "tetryx-server" { };
 
       environmentFile = lib.mkOption {
         description = ''
@@ -97,7 +97,7 @@ in
 
       user = lib.mkOption {
         description = ''
-          The user under which attic runs.
+          The user under which tetryx runs.
         '';
         type = types.str;
         default = "atticd";
@@ -105,7 +105,7 @@ in
 
       group = lib.mkOption {
         description = ''
-          The group under which attic runs.
+          The group under which tetryx runs.
         '';
         type = types.str;
         default = "atticd";
@@ -140,7 +140,7 @@ in
 
           'garbage-collector' only runs the garbage collector periodically.
 
-          A simple NixOS-based Attic deployment will typically have one 'monolithic' and any number of 'api-server' nodes.
+          A simple NixOS-based Tetryx deployment will typically have one 'monolithic' and any number of 'api-server' nodes.
 
           There are several other supported modes that perform one-off operations, but these are the only ones that make sense to run via the NixOS module.
         '';

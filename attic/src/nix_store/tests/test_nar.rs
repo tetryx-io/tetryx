@@ -16,56 +16,56 @@ use tokio::process::Command;
 use crate::error::AtticResult;
 use crate::nix_store::StorePath;
 
-/// Expected values for `nm1w9sdm6j6icmhd2q3260hl1w9zj6li-attic-test-no-deps`.
+/// Expected values for `nm1w9sdm6j6icmhd2q3260hl1w9zj6li-tetryx-test-no-deps`.
 pub const NO_DEPS: TestNar = TestNar {
-    store_path: "/nix/store/nm1w9sdm6j6icmhd2q3260hl1w9zj6li-attic-test-no-deps",
-    _original_file: include_bytes!("nar/nm1w9sdm6j6icmhd2q3260hl1w9zj6li-attic-test-no-deps"),
-    nar: include_bytes!("nar/nm1w9sdm6j6icmhd2q3260hl1w9zj6li-attic-test-no-deps.nar"),
-    export: include_bytes!("nar/nm1w9sdm6j6icmhd2q3260hl1w9zj6li-attic-test-no-deps.export"),
-    closure: &["nm1w9sdm6j6icmhd2q3260hl1w9zj6li-attic-test-no-deps"],
+    store_path: "/nix/store/nm1w9sdm6j6icmhd2q3260hl1w9zj6li-tetryx-test-no-deps",
+    _original_file: include_bytes!("nar/nm1w9sdm6j6icmhd2q3260hl1w9zj6li-tetryx-test-no-deps"),
+    nar: include_bytes!("nar/nm1w9sdm6j6icmhd2q3260hl1w9zj6li-tetryx-test-no-deps.nar"),
+    export: include_bytes!("nar/nm1w9sdm6j6icmhd2q3260hl1w9zj6li-tetryx-test-no-deps.export"),
+    closure: &["nm1w9sdm6j6icmhd2q3260hl1w9zj6li-tetryx-test-no-deps"],
 };
 
-/// Expected values for `n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-attic-test-with-deps-a`.
+/// Expected values for `n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-tetryx-test-with-deps-a`.
 ///
-/// This depends on `544qcchwgcgpz3xi1bbml28f8jj6009p-attic-test-with-deps-b` as well
-/// as `3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final`.
+/// This depends on `544qcchwgcgpz3xi1bbml28f8jj6009p-tetryx-test-with-deps-b` as well
+/// as `3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final`.
 pub const WITH_DEPS_A: TestNar = TestNar {
-    store_path: "/nix/store/n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-attic-test-with-deps-a",
-    _original_file: include_bytes!("nar/n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-attic-test-with-deps-a"),
-    nar: include_bytes!("nar/n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-attic-test-with-deps-a.nar"),
-    export: include_bytes!("nar/n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-attic-test-with-deps-a.export"),
+    store_path: "/nix/store/n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-tetryx-test-with-deps-a",
+    _original_file: include_bytes!("nar/n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-tetryx-test-with-deps-a"),
+    nar: include_bytes!("nar/n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-tetryx-test-with-deps-a.nar"),
+    export: include_bytes!("nar/n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-tetryx-test-with-deps-a.export"),
     closure: &[
-        "n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-attic-test-with-deps-a",
-        "544qcchwgcgpz3xi1bbml28f8jj6009p-attic-test-with-deps-b",
-        "3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final",
+        "n7q4i7rlmbk4xz8qdsxpm6jbhrnxraq2-tetryx-test-with-deps-a",
+        "544qcchwgcgpz3xi1bbml28f8jj6009p-tetryx-test-with-deps-b",
+        "3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final",
     ],
 };
 
-/// Expected values for `544qcchwgcgpz3xi1bbml28f8jj6009p-attic-test-with-deps-b`.
+/// Expected values for `544qcchwgcgpz3xi1bbml28f8jj6009p-tetryx-test-with-deps-b`.
 ///
-/// This depends on `3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final`.
+/// This depends on `3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final`.
 pub const WITH_DEPS_B: TestNar = TestNar {
-    store_path: "/nix/store/544qcchwgcgpz3xi1bbml28f8jj6009p-attic-test-with-deps-b",
-    _original_file: include_bytes!("nar/544qcchwgcgpz3xi1bbml28f8jj6009p-attic-test-with-deps-b"),
-    nar: include_bytes!("nar/544qcchwgcgpz3xi1bbml28f8jj6009p-attic-test-with-deps-b.nar"),
-    export: include_bytes!("nar/544qcchwgcgpz3xi1bbml28f8jj6009p-attic-test-with-deps-b.export"),
+    store_path: "/nix/store/544qcchwgcgpz3xi1bbml28f8jj6009p-tetryx-test-with-deps-b",
+    _original_file: include_bytes!("nar/544qcchwgcgpz3xi1bbml28f8jj6009p-tetryx-test-with-deps-b"),
+    nar: include_bytes!("nar/544qcchwgcgpz3xi1bbml28f8jj6009p-tetryx-test-with-deps-b.nar"),
+    export: include_bytes!("nar/544qcchwgcgpz3xi1bbml28f8jj6009p-tetryx-test-with-deps-b.export"),
     closure: &[
-        "544qcchwgcgpz3xi1bbml28f8jj6009p-attic-test-with-deps-b",
-        "3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final",
+        "544qcchwgcgpz3xi1bbml28f8jj6009p-tetryx-test-with-deps-b",
+        "3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final",
     ],
 };
 
-/// Expected values for `3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final`.
+/// Expected values for `3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final`.
 pub const WITH_DEPS_C: TestNar = TestNar {
-    store_path: "/nix/store/3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final",
+    store_path: "/nix/store/3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final",
     _original_file: include_bytes!(
-        "nar/3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final"
+        "nar/3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final"
     ),
-    nar: include_bytes!("nar/3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final.nar"),
+    nar: include_bytes!("nar/3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final.nar"),
     export: include_bytes!(
-        "nar/3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final.export"
+        "nar/3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final.export"
     ),
-    closure: &["3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final"],
+    closure: &["3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final"],
 };
 
 /// A test NAR.

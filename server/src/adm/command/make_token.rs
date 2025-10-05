@@ -4,7 +4,7 @@ use clap::Parser;
 use humantime::Duration;
 
 use crate::Opts;
-use attic::cache::CacheNamePattern;
+use tetryx::cache::CacheNamePattern;
 use attic_server::access::Token;
 use attic_server::config::Config;
 

@@ -1,4 +1,4 @@
-{ pkgs, lib, config, flake, attic, ... }:
+{ pkgs, lib, config, flake, tetryx, ... }:
 let
   inherit (lib) types;
 
@@ -45,7 +45,7 @@ let
       server = {
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "attic" ];
+          ensureDatabases = [ "tetryx" ];
           ensureUsers = [
             {
               name = "atticd";
@@ -62,18 +62,18 @@ let
         };
 
         systemd.services.postgresql-setup.postStart = lib.mkAfter ''
-          psql -tAc 'ALTER DATABASE "attic" OWNER TO "atticd"'
+          psql -tAc 'ALTER DATABASE "tetryx" OWNER TO "atticd"'
         '';
 
         services.atticd.settings = {
-          database.url = "postgresql:///attic?host=/run/postgresql";
+          database.url = "postgresql:///tetryx?host=/run/postgresql";
         };
       };
       testScriptPost = ''
         from pathlib import Path
         import os
 
-        schema = server.succeed("pg_dump --schema-only attic")
+        schema = server.succeed("pg_dump --schema-only tetryx")
 
         schema_path = Path(os.environ.get("out", os.getcwd())) / "schema.sql"
         with open(schema_path, 'w') as f:
@@ -107,7 +107,7 @@ let
             type = "s3";
             endpoint = "http://server:9000";
             region = "us-east-1";
-            bucket = "attic";
+            bucket = "tetryx";
             credentials = {
               access_key_id = accessKey;
               secret_access_key = secretKey;
@@ -116,8 +116,8 @@ let
         };
       };
       testScript = ''
-        server.succeed("mkdir /var/lib/minio/data/attic")
-        server.succeed("chown minio: /var/lib/minio/data/attic")
+        server.succeed("mkdir /var/lib/minio/data/tetryx")
+        server.succeed("chown minio: /var/lib/minio/data/tetryx")
         client.wait_until_succeeds("curl http://server:9000", timeout=20)
       '';
     };
@@ -167,13 +167,13 @@ in {
           };
         };
 
-        environment.systemPackages = [ pkgs.openssl pkgs.attic-server ];
+        environment.systemPackages = [ pkgs.openssl pkgs.tetryx-server ];
 
         networking.firewall.allowedTCPPorts = [ 8080 ];
       };
 
       client = {
-        environment.systemPackages = [ pkgs.attic ];
+        environment.systemPackages = [ pkgs.tetryx ];
       };
     };
 
@@ -191,33 +191,33 @@ in {
       root_token = server.succeed("${cmd.atticadm} make-token --sub 'e2e-root' --validity '1 month' --push '*' --pull '*' --delete '*' --create-cache '*' --destroy-cache '*' --configure-cache '*' --configure-cache-retention '*' </dev/null").strip()
       readonly_token = server.succeed("${cmd.atticadm} make-token --sub 'e2e-root' --validity '1 month' --pull 'test' </dev/null").strip()
 
-      client.succeed(f"attic login --set-default root http://server:8080 {root_token}")
-      client.succeed(f"attic login readonly http://server:8080 {readonly_token}")
-      client.succeed("attic login anon http://server:8080")
+      client.succeed(f"tetryx login --set-default root http://server:8080 {root_token}")
+      client.succeed(f"tetryx login readonly http://server:8080 {readonly_token}")
+      client.succeed("tetryx login anon http://server:8080")
 
       # TODO: Make sure the correct status codes are returned
       # (i.e., 500s shouldn't pass the "should fail" tests)
 
       with subtest("Check that we can create a cache"):
-          client.succeed("attic cache create test")
+          client.succeed("tetryx cache create test")
 
       with subtest("Check that we can push a path"):
           client.succeed("${makeTestDerivation} test.nix")
           test_file = client.succeed("nix-build --no-out-link test.nix").strip()
           test_file_hash = test_file.removeprefix("/nix/store/")[:32]
 
-          client.succeed(f"attic push test {test_file}")
+          client.succeed(f"tetryx push test {test_file}")
           client.succeed(f"nix-store --delete {test_file}")
           client.fail(f"ls {test_file}")
 
       with subtest("Check that we can pull a path"):
-          client.succeed("attic use readonly:test")
+          client.succeed("tetryx use readonly:test")
           client.succeed(f"nix-store -r {test_file}")
           client.succeed(f"grep hello {test_file}")
 
       with subtest("Check that we cannot push without required permissions"):
-          client.fail(f"attic push readonly:test {test_file}")
-          client.fail(f"attic push anon:test {test_file} 2>&1")
+          client.fail(f"tetryx push readonly:test {test_file}")
+          client.fail(f"tetryx push anon:test {test_file} 2>&1")
 
       with subtest("Check that we can push a list of paths from stdin"):
           paths = []
@@ -227,7 +227,7 @@ in {
               client.succeed(f"echo {path} >>paths.txt")
               paths.append(path)
 
-          client.succeed("attic push test --stdin <paths.txt 2>&1")
+          client.succeed("tetryx push test --stdin <paths.txt 2>&1")
 
           for path in paths:
               client.succeed(f"nix-store --delete {path}")
@@ -241,14 +241,14 @@ in {
       with subtest("Check that we can make the cache public"):
           client.fail("curl -sL --fail-with-body http://server:8080/test/nix-cache-info")
           client.fail(f"curl -sL --fail-with-body http://server:8080/test/{test_file_hash}.narinfo")
-          client.succeed("attic cache configure test --public")
+          client.succeed("tetryx cache configure test --public")
           client.succeed("curl -sL --fail-with-body http://server:8080/test/nix-cache-info")
           client.succeed(f"curl -sL --fail-with-body http://server:8080/test/{test_file_hash}.narinfo")
 
       with subtest("Check that we can trigger garbage collection"):
           test_file_hash = test_file.removeprefix("/nix/store/")[:32]
           client.succeed(f"curl -sL --fail-with-body http://server:8080/test/{test_file_hash}.narinfo")
-          client.succeed("attic cache configure test --retention-period 1s")
+          client.succeed("tetryx cache configure test --retention-period 1s")
           time.sleep(2)
           server.succeed("${cmd.atticd} --mode garbage-collector-once")
           client.fail(f"curl -sL --fail-with-body http://server:8080/test/{test_file_hash}.narinfo")
@@ -263,14 +263,14 @@ in {
       with subtest("Check that we can include the upload info in the payload"):
           client.succeed("${makeTestDerivation} test2.nix")
           test2_file = client.succeed("nix-build --no-out-link test2.nix")
-          client.succeed(f"attic push --force-preamble test {test2_file}")
+          client.succeed(f"tetryx push --force-preamble test {test2_file}")
           client.succeed(f"nix-store --delete {test2_file}")
           client.succeed(f"nix-store -r {test2_file}")
 
       with subtest("Check that we can destroy the cache"):
-          client.succeed("attic cache info test")
-          client.succeed("attic cache destroy --no-confirm test")
-          client.fail("attic cache info test")
+          client.succeed("tetryx cache info test")
+          client.succeed("tetryx cache destroy --no-confirm test")
+          client.fail("tetryx cache info test")
           client.fail("curl -sL --fail-with-body http://server:8080/test/nix-cache-info")
 
       ${databaseModules.${config.database}.testScriptPost or ""}

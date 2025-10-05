@@ -9,7 +9,7 @@ use enum_as_inner::EnumAsInner;
 use attic_server::config;
 use command::make_token::{self, MakeToken};
 
-/// Attic server administration utilities.
+/// Tetryx server administration utilities.
 #[derive(Debug, Parser)]
 #[clap(version, author = "Zhaofeng Li <hello@zhaofeng.li>")]
 #[clap(propagate_version = true)]

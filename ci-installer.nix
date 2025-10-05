@@ -1,12 +1,12 @@
-# Generates a script to bootstrap the Attic client with a substituter for
-# CI usage. Will be simplier when Attic is in cache.nixos.org.
+# Generates a script to bootstrap the Tetryx client with a substituter for
+# CI usage. Will be simplier when Tetryx is in cache.nixos.org.
 
 { self
 , writeText
 , writeScript
 
-, substituter ? "https://staging.attic.rs/attic-ci"
-, trustedPublicKey ? "attic-ci:U5Sey4mUxwBXM3iFapmP0/ogODXywKLRNgRPQpEXxbo="
+, substituter ? "https://staging.tetryx.rs/tetryx-ci"
+, trustedPublicKey ? "tetryx-ci:U5Sey4mUxwBXM3iFapmP0/ogODXywKLRNgRPQpEXxbo="
 }:
 
 let
@@ -41,8 +41,8 @@ let
 
   makeBootstrap = system: let
     package =
-      if system == "x86_64-linux" then self.packages.${system}.attic-client-static
-      else self.packages.${system}.attic-client;
+      if system == "x86_64-linux" then self.packages.${system}.tetryx-client-static
+      else self.packages.${system}.tetryx-client;
   in ''
     "${system}" = (mkFakeDerivation {
       name = "${package.name}";
@@ -63,7 +63,7 @@ let
     }.''${system}
   '';
 
-  bootstrapScript = writeScript "install-attic-ci.sh" ''
+  bootstrapScript = writeScript "install-tetryx-ci.sh" ''
     #!/usr/bin/env bash
     set -euo pipefail
     expr=$(mktemp)

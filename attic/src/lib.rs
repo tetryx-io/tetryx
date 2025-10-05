@@ -1,4 +1,4 @@
-//! The Attic Library.
+//! The Tetryx Library.
 
 #![deny(
     asm_sub_register,

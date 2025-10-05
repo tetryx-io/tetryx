@@ -1,10 +1,10 @@
 //! Access control.
 //!
-//! Access control in Attic is simple and stateless [0] - The server validates
-//! the JWT against the configured key and allows access based on the `https://jwt.attic.rs/v1`
+//! Access control in Tetryx is simple and stateless [0] - The server validates
+//! the JWT against the configured key and allows access based on the `https://jwt.tetryx.rs/v1`
 //! claim.
 //!
-//! One primary goal of the Attic Server is easy scalability. It's designed
+//! One primary goal of the Tetryx Server is easy scalability. It's designed
 //! to be deployed to serverless platforms like fly.io and have fast
 //! cold-start times. Instances are created and destoyed rapidly in response
 //! to requests.
@@ -35,7 +35,7 @@
 //! To add the token to Nix, use the following format in `~/.config/nix/netrc`:
 //!
 //! ```text
-//! machine attic.server.tld password eyJhb...
+//! machine tetryx.server.tld password eyJhb...
 //! ```
 //!
 //! ## Example token
@@ -44,7 +44,7 @@
 //! {
 //!   "sub": "meow",
 //!   "exp": 4102324986,
-//!   "https://jwt.attic.rs/v1": {
+//!   "https://jwt.tetryx.rs/v1": {
 //!     "caches": {
 //!       "cache-rw": {
 //!         "w": 1,
@@ -99,7 +99,7 @@ pub use jwt_simple::{
 use serde::{Deserialize, Serialize};
 use serde_with::{serde_as, BoolFromInt};
 
-use attic::cache::{CacheName, CacheNamePattern};
+use tetryx::cache::{CacheName, CacheNamePattern};
 
 /// Custom claim namespace for the AtticAccess information.
 ///
@@ -109,7 +109,7 @@ use attic::cache::{CacheName, CacheNamePattern};
 /// <https://auth0.com/docs/security/tokens/json-web-tokens/create-namespaced-custom-claims>
 ///
 /// Also change the `#[serde(rename)]` below if you change this.
-pub const CLAIM_NAMESPACE: &str = "https://jwt.attic.rs/v1";
+pub const CLAIM_NAMESPACE: &str = "https://jwt.tetryx.rs/v1";
 
 macro_rules! require_permission_function {
     ($name:ident, $descr:literal, $member:ident) => {
@@ -135,14 +135,14 @@ pub struct Token(JWTClaims<TokenClaims>);
 /// Claims of a JSON Web Token.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct TokenClaims {
-    /// Attic namespace.
-    #[serde(rename = "https://jwt.attic.rs/v1")]
+    /// Tetryx namespace.
+    #[serde(rename = "https://jwt.tetryx.rs/v1")]
     attic_ns: AtticAccess,
 }
 
 /// Permissions granted to a client.
 ///
-/// This is the content of the `attic-access` claim in JWTs.
+/// This is the content of the `tetryx-access` claim in JWTs.
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct AtticAccess {
     /// Cache permissions.

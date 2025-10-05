@@ -13,7 +13,7 @@ in
 {
   options = {
     perSystem = mkPerSystemOption {
-      options.attic.devshell = {
+      options.tetryx.devshell = {
         packageSets = mkOption {
           type = types.attrsOf (types.listOf types.package);
           default = {};
@@ -32,10 +32,10 @@ in
 
   config = {
     perSystem = { self', pkgs, config, ... }: let
-      cfg = config.attic.devshell;
+      cfg = config.tetryx.devshell;
     in {
-      attic.devshell.packageSets = with pkgs; {
-        rustc = lib.optionals (config.attic.toolchain == null) [
+      tetryx.devshell.packageSets = with pkgs; {
+        rustc = lib.optionals (config.tetryx.toolchain == null) [
           rustc
         ];
 
@@ -82,21 +82,21 @@ in
 
       devShells.default = pkgs.mkShell (lib.recursiveUpdate {
         inputsFrom = [
-          self'.packages.attic
+          self'.packages.tetryx
           self'.packages.book
         ];
 
         packages = lib.flatten (lib.attrValues cfg.packageSets);
 
         env = {
-          ATTIC_DISTRIBUTOR = toplevel.config.attic.distributor;
+          ATTIC_DISTRIBUTOR = toplevel.config.tetryx.distributor;
 
           RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
 
           NIX_PATH = "nixpkgs=${pkgs.path}";
 
           # Used by `just with-nix` to build/test with alternative Nix versions.
-          NIX_VERSIONS = config.attic.nix-versions.manifestFile;
+          NIX_VERSIONS = config.tetryx.nix-versions.manifestFile;
         };
       } cfg.extraArgs);
 

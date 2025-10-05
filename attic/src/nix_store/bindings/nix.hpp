@@ -74,4 +74,4 @@ public:
 std::unique_ptr<CNixStore> open_nix_store();
 
 // Relies on our definitions
-#include "attic/src/nix_store/bindings/mod.rs.h"
+#include "tetryx/src/nix_store/bindings/mod.rs.h"

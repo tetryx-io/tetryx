@@ -22,8 +22,8 @@ use crate::storage::{LocalStorageConfig, S3StorageConfig};
 
 /// Application prefix in XDG base directories.
 ///
-/// This will be concatenated into `$XDG_CONFIG_HOME/attic`.
-const XDG_PREFIX: &str = "attic";
+/// This will be concatenated into `$XDG_CONFIG_HOME/tetryx`.
+const XDG_PREFIX: &str = "tetryx";
 
 /// Environment variable storing the Base64-encoded TOML configuration.
 ///
@@ -45,7 +45,7 @@ const ENV_TOKEN_RS256_PUBKEY_BASE64: &str = "ATTIC_SERVER_TOKEN_RS256_PUBKEY_BAS
 /// Environment variable storing the database connection string.
 const ENV_DATABASE_URL: &str = "ATTIC_SERVER_DATABASE_URL";
 
-/// Configuration for the Attic Server.
+/// Configuration for the Tetryx Server.
 #[derive(Clone, Deserialize, derive_more::Debug)]
 #[serde(deny_unknown_fields)]
 pub struct Config {
@@ -69,8 +69,8 @@ pub struct Config {
     /// API endpoint is synthesized from the client's `Host` header which may
     /// be insecure.
     ///
-    /// The API endpoint _must_ end with a slash (e.g., `https://domain.tld/attic/`
-    /// not `https://domain.tld/attic`).
+    /// The API endpoint _must_ end with a slash (e.g., `https://domain.tld/tetryx/`
+    /// not `https://domain.tld/tetryx`).
     #[serde(rename = "api-endpoint")]
     pub api_endpoint: Option<String>,
 
@@ -277,7 +277,7 @@ pub struct CompressionConfig {
 
     /// Compression level.
     ///
-    /// If unspecified, Attic will choose a default one.
+    /// If unspecified, Tetryx will choose a default one.
     pub level: Option<i32>,
 }
 

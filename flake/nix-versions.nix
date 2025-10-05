@@ -11,7 +11,7 @@ in
 {
   options = {
     perSystem = mkPerSystemOption {
-      options.attic.nix-versions = {
+      options.tetryx.nix-versions = {
         versions = mkOption {
           type = types.attrsOf types.package;
           default = {};
@@ -31,9 +31,9 @@ in
     flake.internalMatrix = lib.mapAttrs (system: ps: ps.internalMatrix) config.allSystems;
 
     perSystem = { self', pkgs, config, cranePkgs, ... }: let
-      cfg = config.attic.nix-versions;
+      cfg = config.tetryx.nix-versions;
     in {
-      attic.nix-versions = {
+      tetryx.nix-versions = {
         versions = {
           default = pkgs.nix;
           "2.24" = pkgs.nixVersions.nix_2_24;
@@ -56,7 +56,7 @@ in
       internalMatrix = lib.mapAttrs (_: nix: let
         cranePkgs' = cranePkgs.override { inherit nix; };
       in {
-        inherit (cranePkgs') attic-tests cargoArtifacts;
+        inherit (cranePkgs') tetryx-tests cargoArtifacts;
       }) cfg.versions;
     };
   };

@@ -3,8 +3,8 @@ authors = ["Zhaofeng Li"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Attic"
+title = "Tetryx"
 
 [output.html]
-git-repository-url = "https://github.com/zhaofengli/attic"
-edit-url-template = "https://github.com/zhaofengli/attic/edit/main/book/{path}"
+git-repository-url = "https://github.com/zhaofengli/tetryx"
+edit-url-template = "https://github.com/zhaofengli/tetryx/edit/main/book/{path}"

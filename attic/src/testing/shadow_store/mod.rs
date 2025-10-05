@@ -2,9 +2,9 @@
 //!
 //! Since Nix 2.0, Nix can use an alternative root for the store via
 //! `--store` while keeping the same `storeDir`. To test pulling from
-//! an Attic server with vanilla Nix, we create a temporary root
+//! an Tetryx server with vanilla Nix, we create a temporary root
 //! for the store, as well as `nix.conf` and `netrc` configurations
-//! required to connect to an Attic server.
+//! required to connect to an Tetryx server.
 //!
 //! ## Manual example
 //!
@@ -16,8 +16,8 @@
 //! `nix.conf`:
 //!
 //! ```text
-//! substituters = http://localhost:8080/attic-test
-//! trusted-public-keys = attic-test:KmfKk/KwUscRJ8obZd4w6LgaqHZcn6uhfh7FYW02DzA=
+//! substituters = http://localhost:8080/tetryx-test
+//! trusted-public-keys = tetryx-test:KmfKk/KwUscRJ8obZd4w6LgaqHZcn6uhfh7FYW02DzA=
 //! ```
 //!
 //! `netrc`:

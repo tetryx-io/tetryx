@@ -165,7 +165,7 @@ mod ffi {
     }
 
     unsafe extern "C++" {
-        include!("attic/src/nix_store/bindings/nix.hpp");
+        include!("tetryx/src/nix_store/bindings/nix.hpp");
 
         // =========
         // CNixStore

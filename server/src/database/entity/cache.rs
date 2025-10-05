@@ -3,8 +3,8 @@
 use sea_orm::entity::prelude::*;
 
 use super::Json;
-use attic::error::AtticResult;
-use attic::signing::NixKeypair;
+use tetryx::error::AtticResult;
+use tetryx::signing::NixKeypair;
 
 pub type CacheModel = Model;
 

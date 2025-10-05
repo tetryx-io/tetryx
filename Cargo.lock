@@ -224,7 +224,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
 
 [[package]]
-name = "attic"
+name = "tetryx"
 version = "0.1.0"
 dependencies = [
  "async-stream",
@@ -256,12 +256,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "attic-client"
+name = "tetryx-client"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-channel",
- "attic",
+ "tetryx",
  "bytes",
  "clap",
  "clap_complete",
@@ -286,15 +286,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "attic-server"
+name = "tetryx-server"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-compression",
  "async-stream",
  "async-trait",
- "attic",
- "attic-token",
+ "tetryx",
+ "tetryx-token",
  "aws-config",
  "aws-sdk-s3",
  "axum 0.7.9",
@@ -336,10 +336,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "attic-token"
+name = "tetryx-token"
 version = "0.1.0"
 dependencies = [
- "attic",
+ "tetryx",
  "base64 0.22.1",
  "chrono",
  "displaydoc",

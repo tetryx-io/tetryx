@@ -17,22 +17,22 @@ use serde::Deserialize;
 
 use crate::config::ServerConfig;
 use crate::version::ATTIC_DISTRIBUTOR;
-use attic::api::v1::cache_config::{CacheConfig, CreateCacheRequest};
-use attic::api::v1::get_missing_paths::{GetMissingPathsRequest, GetMissingPathsResponse};
-use attic::api::v1::upload_path::{
+use tetryx::api::v1::cache_config::{CacheConfig, CreateCacheRequest};
+use tetryx::api::v1::get_missing_paths::{GetMissingPathsRequest, GetMissingPathsResponse};
+use tetryx::api::v1::upload_path::{
     UploadPathNarInfo, UploadPathResult, ATTIC_NAR_INFO, ATTIC_NAR_INFO_PREAMBLE_SIZE,
 };
-use attic::cache::CacheName;
-use attic::nix_store::StorePathHash;
+use tetryx::cache::CacheName;
+use tetryx::nix_store::StorePathHash;
 
-/// The User-Agent string of Attic.
+/// The User-Agent string of Tetryx.
 const ATTIC_USER_AGENT: &str =
-    formatcp!("Attic/{} ({})", env!("CARGO_PKG_NAME"), ATTIC_DISTRIBUTOR);
+    formatcp!("Tetryx/{} ({})", env!("CARGO_PKG_NAME"), ATTIC_DISTRIBUTOR);
 
 /// The size threshold to send the upload info as part of the PUT body.
 const NAR_INFO_PREAMBLE_THRESHOLD: usize = 4 * 1024; // 4 KiB
 
-/// The Attic API client.
+/// The Tetryx API client.
 #[derive(Debug, Clone)]
 pub struct ApiClient {
     /// Base endpoint of the server.

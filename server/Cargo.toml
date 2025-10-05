@@ -1,5 +1,5 @@
 [package]
-name = "attic-server"
+name = "tetryx-server"
 version = "0.1.0"
 edition = "2021"
 publish = false
@@ -19,8 +19,8 @@ path = "src/adm/main.rs"
 doc = false
 
 [dependencies]
-attic = { path = "../attic", default-features = false, features = ["chunking", "io", "tokio"] }
-attic-token = { path = "../token" }
+tetryx = { path = "../tetryx", default-features = false, features = ["chunking", "io", "tokio"] }
+tetryx-token = { path = "../token" }
 
 anyhow = "1.0.98"
 async-stream = "0.3.6"

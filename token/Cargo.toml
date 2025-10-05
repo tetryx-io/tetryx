@@ -1,12 +1,12 @@
 [package]
-name = "attic-token"
+name = "tetryx-token"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-attic = { path = "../attic", default-features = false }
+tetryx = { path = "../tetryx", default-features = false }
 
 base64 = "0.22.1"
 chrono = "0.4.41"

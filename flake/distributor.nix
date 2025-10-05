@@ -7,7 +7,7 @@ let
 in
 {
   options = {
-    attic.distributor = mkOption {
+    tetryx.distributor = mkOption {
       type = types.str;
       default = "dev";
     };

@@ -31,7 +31,7 @@ in
 {
   options = {
     perSystem = mkPerSystemOption {
-      options.attic = {
+      options.tetryx = {
         toolchain = mkOption {
           type = types.nullOr types.package;
           default = null;
@@ -50,13 +50,13 @@ in
       craneLib = builtins.foldl' (acc: f: f acc) pkgs [
         inputs.crane.mkLib
         (craneLib:
-          if perSystemConfig.attic.toolchain == null then craneLib
-          else craneLib.overrideToolchain config.attic.toolchain
+          if perSystemConfig.tetryx.toolchain == null then craneLib
+          else craneLib.overrideToolchain config.tetryx.toolchain
         )
       ];
     in pkgs.callPackage ../crane.nix {
       inherit craneLib;
-      inherit (perSystemConfig.attic) extraPackageArgs;
+      inherit (perSystemConfig.tetryx) extraPackageArgs;
     });
 
     perSystem = {
@@ -74,35 +74,35 @@ in
         };
 
         packages = {
-          default = self'.packages.attic;
+          default = self'.packages.tetryx;
 
           inherit (cranePkgs)
-            attic
-            attic-client
-            attic-server
+            tetryx
+            tetryx-client
+            tetryx-server
           ;
 
-          attic-static = cranePkgsStatic.attic;
-          attic-client-static = cranePkgsStatic.attic-client;
-          attic-server-static = cranePkgsStatic.attic-server;
+          tetryx-static = cranePkgsStatic.tetryx;
+          tetryx-client-static = cranePkgsStatic.tetryx-client;
+          tetryx-server-static = cranePkgsStatic.tetryx-server;
 
-          attic-ci-installer = pkgs.callPackage ../ci-installer.nix {
+          tetryx-ci-installer = pkgs.callPackage ../ci-installer.nix {
             inherit self;
           };
 
           book = pkgs.callPackage ../book {
-            attic = self'.packages.attic;
+            tetryx = self'.packages.tetryx;
           };
         };
       }
 
       (lib.mkIf pkgs.stdenv.isLinux {
         packages = {
-          attic-server-image = pkgs.dockerTools.buildImage {
-            name = "attic-server";
+          tetryx-server-image = pkgs.dockerTools.buildImage {
+            name = "tetryx-server";
             tag = "main";
             copyToRoot = [
-              self'.packages.attic-server
+              self'.packages.tetryx-server
 
               # Debugging utilities for `fly ssh console`
               pkgs.busybox
@@ -122,13 +122,13 @@ in
 
       (lib.mkIf (pkgs.system == "x86_64-linux") {
         packages = {
-          attic-server-image-aarch64 = let
+          tetryx-server-image-aarch64 = let
             eval = evalCross {
               system = "aarch64-linux";
               pkgs = pkgs.pkgsCross.aarch64-multiplatform;
             };
 
-          in eval.config.packages.attic-server-image;
+          in eval.config.packages.tetryx-server-image;
         };
       })
     ]);

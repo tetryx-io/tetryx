@@ -1,6 +1,6 @@
 # Deploying to NixOS
 
-Attic provides [a NixOS module](https://github.com/zhaofengli/attic/blob/main/nixos/atticd.nix) that allows you to deploy the Attic Server on a NixOS machine.
+Tetryx provides [a NixOS module](https://github.com/zhaofengli/tetryx/blob/main/nixos/atticd.nix) that allows you to deploy the Tetryx Server on a NixOS machine.
 
 ## Prerequisites
 
@@ -29,8 +29,8 @@ Ensure the file is only accessible by root.
 
 You can import the module in one of two ways:
 
-- Ad-hoc: Import the `nixos/atticd.nix` from [the repository](https://github.com/zhaofengli/attic).
-- Flakes: Add `github:zhaofengli/attic` as an input, then import `attic.nixosModules.atticd`.
+- Ad-hoc: Import the `nixos/atticd.nix` from [the repository](https://github.com/zhaofengli/tetryx).
+- Flakes: Add `github:zhaofengli/tetryx` as an input, then import `tetryx.nixosModules.atticd`.
 
 ## Configuration
 
@@ -76,7 +76,7 @@ You can import the module in one of two ways:
 }
 ```
 
-After the new configuration is deployed, the Attic Server will be accessible on port 8080.
+After the new configuration is deployed, the Tetryx Server will be accessible on port 8080.
 It's highly recommended to place it behind a reverse proxy like [NGINX](https://nixos.wiki/wiki/Nginx) to provide HTTPS.
 
 ## Operations

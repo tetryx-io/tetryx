@@ -239,7 +239,7 @@ async fn test_query_path_info() {
     assert_eq!(nar.nar().len() as u64, path_info.nar_size);
     assert_eq!(
         vec![PathBuf::from(
-            "3k1wymic8p7h5pfcqfhh0jan8ny2a712-attic-test-with-deps-c-final"
+            "3k1wymic8p7h5pfcqfhh0jan8ny2a712-tetryx-test-with-deps-c-final"
         ),],
         path_info.references
     );

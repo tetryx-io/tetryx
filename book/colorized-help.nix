@@ -1,10 +1,10 @@
-{ lib, stdenv, runCommand, attic, ansi2html }:
+{ lib, stdenv, runCommand, tetryx, ansi2html }:
 
 with builtins;
 
 let
   commands = {
-    attic = [
+    tetryx = [
       null
       "login"
       "use"
@@ -39,6 +39,6 @@ let
     TERM=xterm-256color CLICOLOR_FORCE=1 ${fullCommand} --help | ansi2html -p
     echo '</div></pre>'
   '';
-in runCommand "attic-colorized-help" {
-  nativeBuildInputs = [ attic ansi2html ];
+in runCommand "tetryx-colorized-help" {
+  nativeBuildInputs = [ tetryx ansi2html ];
 } (concatStringsSep "\n" (lib.mapAttrsToList renderMarkdown commands))
