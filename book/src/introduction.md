@@ -1,6 +1,6 @@
 # Introduction
 
-**Tetryx** is the "Supabase for Space" - an open-source platform designed to accelerate space operations through modern software development practices. While it includes a powerful self-hostable Nix Binary Cache server backed by S3-compatible storage with global deduplication and garbage collection, Tetryx is expanding into a comprehensive "open space" stack.
+**Tetryx** is the "Supabase for Space" - a source-available platform designed to accelerate space operations through modern software development practices. While it includes a powerful self-hostable Nix Binary Cache server backed by S3-compatible storage with global deduplication and garbage collection, Tetryx is expanding into a comprehensive "open space" stack.
 
 The platform aims to provide:
 - **Satellite Pass Automation**: Automated scheduling and execution of satellite communication passes

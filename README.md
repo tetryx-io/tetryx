@@ -1,6 +1,6 @@
 # Tetryx
 
-**Tetryx** is the "Supabase for Space" - an open-source platform for space operations that includes a self-hostable Nix Binary Cache server, satellite pass automation backend, groundstation operations database and APIs, and more.
+**Tetryx** is the "Supabase for Space" - a source-available platform for space operations that includes a self-hostable Nix Binary Cache server, satellite pass automation backend, groundstation operations database and APIs, and more.
 
 The platform is designed to enable rapid development and deployment of space software systems with modern DevOps practices, featuring a Nix-based binary cache server with global deduplication and garbage collection as its foundation.
 
@@ -37,7 +37,7 @@ And yes, it works on macOS too!
 
 ## Licensing
 
-Tetryx is available under the **Apache License, Version 2.0**.
+Tetryx is available under the **Elastic License 2.0**.
 See `LICENSE` for details.
 
 By contributing to the project, you agree to license your work under the aforementioned license.
