@@ -12,7 +12,6 @@ export interface TetryxConfig {
 export interface User {
   id: string;
   email: string;
-  username: string;
   created_at: string;
   last_sign_in_at?: string;
   role?: 'admin' | 'user';
@@ -41,7 +40,6 @@ export interface LoginCredentials {
 export interface SignUpCredentials {
   email: string;
   password: string;
-  username: string;
 }
 
 class TetryxClient {

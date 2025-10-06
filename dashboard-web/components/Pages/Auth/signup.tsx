@@ -34,13 +34,11 @@ const SignUpPage = ({ inviteObj, hasInviteError }) => {
 
   const [auth, setAuth] = useState({
     email: (inviteObj?.invitee_email as string) || "",
-    username: "",
     password: "",
     password_confirm: ""
   });
   const [error, setError] = useState({
     email: "",
-    username: "",
     password: "",
     password_confirm: "",
     general: "",
@@ -64,7 +62,6 @@ const SignUpPage = ({ inviteObj, hasInviteError }) => {
 
     const { status, message } = await signUp({
       email: auth.email,
-      username: auth.username,
       password: auth.password,
     });
 
@@ -112,7 +109,6 @@ const SignUpPage = ({ inviteObj, hasInviteError }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setError({
       email: "",
-      username: "",
       password: "",
       password_confirm: "",
       general: "",
@@ -157,7 +153,7 @@ const SignUpPage = ({ inviteObj, hasInviteError }) => {
             : `${
                 showSuccess
                   ? "Thank you for registering your intent. We are excited to have you on board but first, let's verify your email."
-                  : "Welcome. Let’s set you up with an account. Use your google account or email address."
+                  : "Welcome. Let's set you up with an account."
               } `}
         </h6>
       </div>
@@ -173,33 +169,12 @@ const SignUpPage = ({ inviteObj, hasInviteError }) => {
           </div>
 
           <div className="flex flex-col gap-3 mt-8">
-            <Link
-              href={`https://mail.google.com/mail/u/${auth.email}/#search/from%3A%40atrium.st+in%3Aanywhere+newer_than%3A1d`}
-              target="_blank"
-              className="w-full"
-            >
-              <DefaultButton
-                label={"Open Gmail"}
-                variant="default"
-                iconLeft={
-                  <img
-                    src="/images/gmail-logo.svg"
-                    width={16}
-                    height={16}
-                    className="w-4 h-4"
-                  />
-                }
-                size="medium"
-                styleClass="font-semibold w-full"
-              />
-            </Link>
-
             <Link href="mailto:" target="_blank" className="w-full">
               <DefaultButton
-                label={"I use another email client"}
-                variant="ghost"
+                label={"Open email client"}
+                variant="default"
                 size="medium"
-                styleClass="text-neutral-500 text-neutral-400 w-full"
+                styleClass="font-semibold w-full"
               />
             </Link>
           </div>
@@ -224,18 +199,6 @@ const SignUpPage = ({ inviteObj, hasInviteError }) => {
             />
             {error.email && (
               <div className="text-red-500 text-sm mt-1">{error.email}</div>
-            )}
-
-            <Input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={auth.username}
-              iconLeft={<RiUser3Line className="mt-2.5 opacity-60" size={18} />}
-              onChange={handleChange}
-            />
-            {error.username && (
-              <div className="text-red-500 text-sm mt-1">{error.username}</div>
             )}
 
             <PasswordInput
