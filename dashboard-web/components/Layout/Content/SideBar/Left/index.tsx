@@ -4,7 +4,7 @@ import LinkTree from "@/components/Common/LinkTree";
 import { HiRefresh } from "react-icons/hi";
 import { MdOutlineHelp } from "react-icons/md";
 
-import Loader from "@/components/Common/AtriumLoader";
+import Loader from "@/components/Common/TetryxLoader";
 import { useDocsContext } from "@/components/Layout/Content/context";
 
 import axios from "axios";

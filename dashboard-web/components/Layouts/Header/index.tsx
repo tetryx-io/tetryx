@@ -7,7 +7,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import GetEarlyAccessDialog from "@/components/EarlyAccess/earlyAccess";
 import Logo from "@/components/Shared/Logo";
 import { useSessionContext } from "@/lib/context/session";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth } from "@/lib/providers/auth";
 import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -31,14 +31,11 @@ const MenuButtonClsx = clsx(
 );
 
 const PublicHeader = () => {
-  const { user } = useSupabaseAuth();
+  const { user, loading, authenticated, signOut } = useTetryxAuth();
   const router = useRouter();
   const [currentUrl, setCurrentUrl] = useState([""]);
   const [showEarlyAccess, setShowEarlyAccess] = useState<any>(false);
   const { session } = useSessionContext();
-  const { loading: loadingSupabase, authenticated } = useSupabaseAuth();
-
-  const { signOut } = useSupabaseAuth();
 
   const pathName = usePathname();
 
@@ -404,7 +401,7 @@ const PublicHeader = () => {
                       Your agent is currently running in development mode. Changes won't affect your production environment.
                     </p>
                     <a
-                      href="https://docs.atrium.st/dev-mode/"
+                      href="https://docs.tetryx.io/dev-mode/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-atrium-orange hover:text-atrium-orange/80 font-medium flex items-center gap-1"
@@ -506,7 +503,7 @@ const PublicHeader = () => {
                     <Menu.Item>
                       {({ active }) => (
                         <Link
-                          href="https://docs.atrium.st"
+                          href="https://docs.tetryx.io"
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`${active ? 'bg-neutral-50' : ''
@@ -560,7 +557,7 @@ const PublicHeader = () => {
               className="hidden md:flex ml-1 font-inter font-medium items-center gap-5 h-full"
             >
               <div className="w-1 h-4/6 border-l border-neutral-300 mr-3"></div>
-              {!loadingSupabase && user &&
+              {!loading && user &&
                 <Link
                   href="/home"
                   className={clsx(
@@ -582,7 +579,7 @@ const PublicHeader = () => {
                   Developers
                 </Link>
                 <Link
-                  href="https://docs.atrium.st"
+                  href="https://docs.tetryx.io"
                   className="flex items-center px-3 h-full rounded-md hover:bg-neutral-100"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -601,7 +598,7 @@ const PublicHeader = () => {
             </nav>
           </div>
           <div className="flex items-center gap-4">
-            {loadingSupabase ? (
+            {loading ? (
               <LoadingSkeletons />
             ) : user ? (
               <>

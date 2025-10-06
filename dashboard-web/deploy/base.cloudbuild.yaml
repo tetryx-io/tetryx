@@ -1,0 +1,30 @@
+steps:
+  - id: 'docker-login-aws'
+    name: 'us-east5-docker.pkg.dev/$PROJECT_ID/dock/devops/builder'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 513054450991.dkr.ecr.us-east-2.amazonaws.com
+    env: [ 'AWS_ACCESS_KEY_ID=${_AWS_ACCESS_KEY_ID}', 'AWS_SECRET_ACCESS_KEY=${_AWS_SECRET_ACCESS_KEY}' ]
+  - id: 'docker-build'
+    name: 'us-east5-docker.pkg.dev/$PROJECT_ID/dock/devops/builder' # Is there a way to prevent this builder from being downloaded again, and re-use it from the previous step?
+    entrypoint: 'docker'
+    args: [ 'build',
+            '-t', '${_GCP_IMAGE_URL}:latest',
+            '-t', '${_GCP_IMAGE_URL}:${BUILD_ID}',
+            '-t', '${_GCP_IMAGE_URL}:${COMMIT_SHA}',
+            '--build-arg', 'GIT_PAT=${_GIT_PAT}',
+            '--build-arg', 'GIT_USER=${_GIT_USER}',
+            '--build-arg', 'BRANCH_NAME=${BRANCH_NAME}',
+            '-f', 'base.Dockerfile',
+            '.']
+    waitFor: ['-']  # The '-' indicates that this step begins ASAP.
+    dir: 'deploy'
+images:
+  - '${_GCP_IMAGE_URL}:latest'
+  - '${_GCP_IMAGE_URL}:${BUILD_ID}'
+  - '${_GCP_IMAGE_URL}:${COMMIT_SHA}'
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8' # Don't change this to a more powerful machine type, it doesn't lead to faster builds.

@@ -1,6 +1,6 @@
 "use client";
 import Providers from "@/lib/providers/Providers";
-import Loader from "@/components/Common/AtriumLoader";
+import Loader from "@/components/Common/TetryxLoader";
 import { useMemo } from "react";
 import { useSessionContext } from "@/lib/context/session";
 

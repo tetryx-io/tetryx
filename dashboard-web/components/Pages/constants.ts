@@ -1,0 +1,58 @@
+export const pointsColors: any = {
+  ChatGPTPrompt: 0x007fc1,
+  ChatGPTResponse: 0x27c100,
+  class_0: 0xff00ff,
+  class_1: 0x4b0082,
+  class_2: 0x000080,
+  class_3: 0x006400,
+  class_4: 0xff0000,
+  class_5: 0xd2691e,
+  class_6: 0x008080,
+  class_7: 0x800080,
+  0: 0x800087,
+  1: 0xff00ff,
+  2: 0x4b0082,
+  3: 0x000080,
+  4: 0x006400,
+  5: 0xff0000,
+  6: 0xd2691e,
+  7: 0x008080,
+  8: 0x800080,
+  default: 0x000000,
+};
+
+export const tagsColor: any = {
+  class_0: "FF00FF",
+  class_1: "4B0082",
+  class_2: "000080",
+  class_3: "006400",
+  class_4: "FF0000",
+  class_5: "D2691E",
+  class_6: "008080",
+  class_7: "800080",
+};
+
+export const colorList: any = [
+  "#0A0ACD",
+  "#F91919",
+  "#2DA12D",
+  "#E7E715",
+  "#3B302F",
+  "#FBA609",
+  "#800000",
+  "#F032E6",
+  "#CB416B",
+  "#059BA7",
+  "#605467",
+  "#7C1B9F",
+  "#C89B75",
+  "#876E4B",
+  "#D2691E",
+  "#41FDFE",
+  "#08FF08",
+  "#DCBEFF",
+  "#0A0ACD",
+  "#A9A9A9",
+];
+
+export const pageOption: any = [10, 25, 50, 100, 250, 500, 1000];

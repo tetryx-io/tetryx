@@ -1,14 +1,14 @@
 export const siteConfig = {
-  name: "Atrium",
-  company_name: "Reframe AI, Inc. d/b/a Atrium",
-  url: "https://atrium.st",
-  domain: "atrium.st",
-  author: "Atrium",
-  title: "Atrium | AI Agents at Your Finger Tips",
+  name: "Tetryx",
+  company_name: "Tetryx",
+  url: "https://tetryx.io",
+  domain: "tetryx.io",
+  author: "Tetryx",
+  title: "Tetryx | Supabase for Space",
   description:
-    "Atrium AI allows businesses to seamlessly hire on-demand AI agents build on our platform by a vibrant community of developers.",
-  image: "https://atrium-store.s3.amazonaws.com/assets/new-atrium-cover.png", //Update image
-  favicon: "/atrium/favicon/favicon.ico",
+    "Tetryx provides a comprehensive space operations platform for managing Nix binary caches, monitoring system health, and controlling space mission artifacts.",
+  image: "https://tetryx.io/images/tetryx-cover.png", //Update image
+  favicon: "/favicon.ico",
   manifest: "/manifest.json"
 };
 

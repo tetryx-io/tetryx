@@ -1,0 +1,9 @@
+import { NextRequest, NextResponse } from "next/server";
+import _ from "lodash";
+
+export async function GET(request: NextRequest) {
+  // You can perform any necessary operations here
+
+  // Pass the request to the next middleware or route handler
+  return NextResponse.next();
+}

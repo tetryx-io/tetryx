@@ -1,6 +1,6 @@
 # Tetryx Dashboard
 
-## Space Operations Platform Dashboard
+## Supabase for Space - Space Operations Platform
 
 A modern web dashboard for managing Tetryx cache operations, monitoring system health, and controlling space mission artifacts.
 
@@ -26,7 +26,7 @@ Tetryx Dashboard is a Next.js-based web interface that provides comprehensive ma
   - Tailwind CSS for styling
   - HeadlessUI for accessible components
   - Custom dashboard components
-- **State Management**: React Context + SWR
+- **State Management**: React Context + GraphQL
 - **Type Safety**: TypeScript
 
 ### Backend Integration
@@ -84,21 +84,6 @@ npm start
 
 ## Development
 
-### Project Structure
-
-```
-dashboard-web/
-├── app/                    # Next.js App Router pages
-│   ├── dashboard/         # Main dashboard pages
-│   ├── caches/           # Cache management
-│   ├── settings/         # Configuration
-│   └── api/              # API routes (proxy to Tetryx server)
-├── components/           # Reusable UI components
-├── lib/                  # Utilities and helpers
-├── types/                # TypeScript type definitions
-└── public/               # Static assets
-```
-
 ### Available Scripts
 
 - `npm run dev` - Start development server
@@ -107,21 +92,6 @@ dashboard-web/
 - `npm run type-check` - Run TypeScript checks
 - `npm run format:check` - Check code formatting
 - `npm run format:fix` - Fix code formatting
-
-## Deployment
-
-The dashboard can be deployed alongside the Tetryx server or as a standalone service:
-
-### Docker
-```bash
-docker build -t tetryx-dashboard .
-docker run -p 3000:3000 tetryx-dashboard
-```
-
-### Nix
-```bash
-nix build .#tetryx-dashboard-web
-```
 
 ## API Integration
 

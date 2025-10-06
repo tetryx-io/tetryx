@@ -10,7 +10,7 @@ import { epilogue, sora, inter } from "./fonts";
 import BodyClassManager from "@/components/Layouts/BodyBackgroundManager";
 
 export const metadata = {
-  metadataBase: new URL("https://atrium.st"),
+  metadataBase: new URL("https://tetryx.io"),
   title: siteConfig.title,
   description: siteConfig.description,
   manifest: "/manifest.json",
@@ -58,26 +58,22 @@ export default function RootLayout({
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/atrium/favicon/apple-touch-icon.png"
+          href="/favicon/apple-touch-icon.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/atrium/favicon/favicon-32x32.png"
+          href="/favicon/favicon-32x32.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/atrium/favicon/favicon-16x16.png"
+          href="/favicon/favicon-16x16.png"
         />
         <link rel="manifest" href={siteConfig.manifest}></link>
-        <Script
-          src="https://accounts.google.com/gsi/client"
-          async
-          strategy="beforeInteractive"
-        />
+        {/* Google Auth removed for Tetryx username/password auth */}
       </Head>
       <html
         lang="en"

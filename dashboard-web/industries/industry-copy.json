@@ -1,0 +1,94 @@
+{
+    "b2b-saas": {
+        "hero": {
+            "heading": "Stay ahead of competitors with automated leads generation",
+            "text": "Streamline and automate extensive lead research with intelligent agents. Get valuable insights and rich information on potential prospects for effective decision-making.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75" 
+        },
+
+        "demo": {
+            "kicker": "Prompt and convert",
+            "heading": "Enrich data with AI powered agents",
+            "text": "If you're unable to find the specific dataset you're looking for, simply submit a request to our team with your email, and we'll get in touch with you.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75",
+            "agents": ["linkedin", "google", "hubspot", "salesforce", "apollo", "chrome", "bing"]
+        },
+
+        "features_1": {
+            "kicker": "Enriched CRM for better connections",
+            "heading": "Unlock a new level of prospecting with AI agents",
+            "text": "Score leads and easily identify accounts worth prioritizing instead of manual research and vetting which takes days. Stay up to date with real-time monitoring for timely engagements.",
+            "features_list": ["Real time alerts and monitoring","Research leads in seconds not days", "Rich data for more effective outreaches"],
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75"
+        },
+
+        "features_2": {
+            "kicker": "Focus your efforts on potential high value leads",
+            "heading": "Get rich data for rich impact",
+            "text": "Explore an array of AI-ready datasets to get started with. Test the functionalities of our platform with public datasets, enabling seamless experimentation for your AI projects.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75"
+        }
+    },
+
+    "ecommerce":{
+        "hero": {
+            "heading": "Simplify product insights for better sales performance",
+            "text": "Enhance your product management workflow using intelligent agents. Automate data gathering and analytics, transforming your operations with actionable insights.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75" 
+        },
+
+        "demo": {
+            "kicker": "Automated Web Crawling",
+            "heading": "Streamline Data Collection",
+            "text": "Our web crawling agents extract pricing, reviews, specs, and more from various websites, saving time and effort on manual research.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75",
+            "agents": ["linkedin", "google", "hubspot", "salesforce", "apollo", "chrome", "bing"]
+        },
+
+        "features_1": {
+            "kicker": "Advanced Reporting",
+            "heading": "Generate Comprehensive Analytics",
+            "text": "Our reporting agents analyze sales trends, customer sentiment, vendor performance, and more over custom time periods, providing insights in moments that would take hours manually.",
+            "features_list": ["Analytics on sales trends", "Customer sentiment analysis", "Vendor performance monitoring"],
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75"
+        },
+
+        "features_2": {
+            "kicker": "Focus your efforts on potential high value leads",
+            "heading": "Get rich data for rich impact",
+            "text": "Leverage our spreadsheet analysis agents to mine product data like inventory, costs, and margins, enabling detailed analysis and optimization opportunities.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75"
+        }
+    },
+
+    "recruiting":{
+        "hero": {
+            "heading": "Revolutionize Your Recruiting Process with AI Agents",
+            "text": "Enhance your recruitment workflow with intelligent agents. Automate candidate sourcing, research, and communication to optimize your hiring processes.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75" 
+        },
+
+        "demo": {
+            "kicker": "Prompt and convert",
+            "heading": "Discover the best talent effortlessly",
+            "text": "Our sourcing agents quickly identify and extract candidate info from platforms like LinkedIn based on skills, titles, and keywords, eliminating manual searching and documentation.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75",
+            "agents": ["linkedin", "google", "hubspot", "salesforce", "apollo", "chrome", "bing"]
+        },
+
+        "features_1": {
+            "kicker": "",
+            "heading": "Get detailed insights on candidates",
+            "text": "Our agents source data from disparate sources to provide comprehensive insights on companies, roles, culture, and more during a candidate's tenure, saving recruiters hours of background investigation per prospect.",
+            "features_list": ["Real time alerts and monitoring","Research leads in seconds not days", "Rich data for more effective outreaches"],
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75"
+        },
+
+        "features_2": {
+            "kicker": "See how reframe works",
+            "heading": "Get started with our public datasets",
+            "text": "Explore an array of AI-ready datasets to get started with. Test the functionalities of our platform with public datasets, enabling seamless experimentation for your AI projects.",
+            "image_url": "https://reframeai.app/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fplaceholder.ebeb8ce4.png&w=1920&q=75"
+        }
+    }
+}
