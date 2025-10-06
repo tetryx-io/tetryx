@@ -1,0 +1,21 @@
+# mutation to bulk update blueprint width with multiple values
+mutation ResizeBlueprints($blueprints: [app_blueprint_insert_input!]!) {
+  insert_app_blueprint(
+    objects: $blueprints
+    on_conflict: { constraint: blueprint_pk, update_columns: [width] }
+  ) {
+    affected_rows
+  }
+}
+
+mutation SetColumnRequired($_id: uuid!, $required: Boolean!) {
+  update_app_blueprint(
+    _set: { required: $required }
+    where: { _uid: { _eq: $_id } }
+  ) {
+    returning {
+      id
+      _uid
+    }
+  }
+}

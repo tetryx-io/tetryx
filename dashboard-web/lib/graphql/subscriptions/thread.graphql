@@ -1,0 +1,49 @@
+fragment ChatFields on app_chat {
+  body_richtext
+  _cr
+  type
+  id
+  thread_id
+  _up
+  pair_id
+  parent_id
+  file_attachment_list {
+    file {
+      presigned_url
+      s3_key
+      sha256_hexdigest
+      original_name
+    }
+  }
+}
+
+
+subscription ChatInThread($thread_id: String!) {
+  chat: app_chat(
+    where: { thread_id: { _eq: $thread_id } }
+    order_by: { _cr: asc }
+  ) {
+    ...ChatFields
+  }
+}
+
+
+subscription Thread($id: String!) {
+  thread: app_thread_by_pk(id: $id) {
+    id
+    initiator_id
+    type
+    title
+    visibility
+    workspace_id
+    agent_id
+    agent_debug_mode
+    chat_list(order_by: { _cr: asc }) {
+      ...ChatFields
+    }
+    agent {
+      name
+      id
+    }
+  }
+}

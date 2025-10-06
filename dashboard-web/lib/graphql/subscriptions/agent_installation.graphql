@@ -1,0 +1,50 @@
+subscription AgentInstallationVariables($agent_installation_id: String!) {
+  agent_installation(where: {id: {_eq: $agent_installation_id}}) {
+    id
+    installation_variables {
+      id
+      comment
+      key
+      _up
+      _cr
+      editor {
+        email
+        name
+        picture
+      }
+      is_secret
+      value_json
+      value_string
+      value_type
+      value_url
+    }
+  }
+} 
+
+subscription AgentInstallationCronJobs($agent_installation_id: String!) {
+  agent_installation(where: {id: {_eq: $agent_installation_id}}) {
+    id
+    cron_jobs {
+      id
+      name
+      description
+      frequency
+      body
+      _cr
+      _up
+    }
+  }
+}
+
+subscription AgentInstallationHooks($agent_installation_id: String!) {
+  agent_installation(where: {id: {_eq: $agent_installation_id}}) {
+    id
+    hooks {
+      id
+      target_endpoint
+      headers
+      _cr
+      _up
+    }
+  }
+}

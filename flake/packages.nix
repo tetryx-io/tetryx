@@ -80,11 +80,13 @@ in
             tetryx
             tetryx-client
             tetryx-server
+            tetryx-dashboard
           ;
 
           tetryx-static = cranePkgsStatic.tetryx;
           tetryx-client-static = cranePkgsStatic.tetryx-client;
           tetryx-server-static = cranePkgsStatic.tetryx-server;
+          tetryx-dashboard-static = cranePkgsStatic.tetryx-dashboard;
 
           tetryx-ci-installer = pkgs.callPackage ../ci-installer.nix {
             inherit self;

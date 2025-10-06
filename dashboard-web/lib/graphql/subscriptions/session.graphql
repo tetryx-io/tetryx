@@ -1,0 +1,78 @@
+fragment UserFields on app_user {
+  id
+  _uid
+  email
+  name
+  last_seen
+  picture
+  _up
+  email_verified
+}
+
+fragment WorkspaceFields on app_workspace {
+  stripe_customer_id
+  plan_id
+  name
+  id
+  _uid
+  _cr
+  _up
+  is_developer
+  image_key
+}
+
+subscription Session($id: uuid!) {
+  session: auth_session_by_pk(id: $id) {
+    id
+    user_id
+    workspace_id
+    user {
+      ...UserFields
+    }
+    is_in_dev_mode
+    workspace {
+      ...WorkspaceFields
+      members: membership_list {
+        user {
+          ...UserFields
+        }
+        role
+      }
+      api_key_list(order_by: {_cr: desc}) {
+        assignee_uid
+        creator_uid
+        id
+        creator {
+          id
+          name
+          picture
+        }
+        assignee {
+          id
+          name
+          picture
+        }
+        last_used
+        name
+        _cr
+        _up
+        type
+        installation {
+          agent {
+            id
+            avatar_url
+            name
+          }
+        }
+      }
+    }
+    user {
+      workspace_list: workspace_memberships {
+        workspace {
+          ...WorkspaceFields
+        }
+        role
+      }
+    }
+  }
+}

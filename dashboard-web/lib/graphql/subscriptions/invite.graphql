@@ -1,0 +1,19 @@
+subscription InviteDetails($inviteId: String!) {
+  app_invite(where: {id: {_eq: $inviteId}}) {
+    id
+    workspace {
+      image_key
+      id
+      name
+    }
+    inviter_id
+    email
+    inviter {
+      id
+      name
+      picture
+      email
+    }
+    _cr
+  }
+} 

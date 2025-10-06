@@ -1,0 +1,8 @@
+mutation AnnulInvite($invite_id: uuid!) {
+  delete_app_invite(where: { _uid: { _eq: $invite_id } }) {
+    returning {
+      id
+      _uid
+    }
+  }
+}

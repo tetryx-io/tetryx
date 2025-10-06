@@ -1,0 +1,11 @@
+subscription GetUserStream($_uid: uuid!) {
+  user: app_user(where: { _uid: { _eq: $_uid } }) {
+    id
+    _uid
+    _up
+    email
+    name
+    email_verified
+    picture
+  }
+}

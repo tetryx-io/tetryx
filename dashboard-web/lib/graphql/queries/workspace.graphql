@@ -1,0 +1,13 @@
+query getNamespaceMembership($user_id: String!) {
+  workspace_membership: app_workspace_membership(
+    where: { user_id: { _eq: $user_id } }
+  ) {
+    id
+    _uid
+    workspace {
+      id
+      _uid
+      name
+    }
+  }
+}

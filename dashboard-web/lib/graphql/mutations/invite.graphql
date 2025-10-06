@@ -1,0 +1,32 @@
+mutation InsertInviteList($objects: [app_invite_insert_input!]!) {
+  insert_app_invite(objects: $objects) {
+    affected_rows
+    returning {
+      id
+      _uid
+      _cr
+      _up
+      email
+      num_reminders
+      status
+      last_reminder
+      workspace_id
+      inviter_id
+      promo_name
+    }
+  }
+}
+
+mutation RejectInvite($invite_id: uuid!) {
+  update_app_invite(
+    where: { _uid: { _eq: $invite_id } }
+    _set: { status: "DECLINED" }
+  ) {
+    returning {
+      id
+      _uid
+      email
+      status
+    }
+  }
+}

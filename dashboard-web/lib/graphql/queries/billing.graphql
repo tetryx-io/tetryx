@@ -1,0 +1,39 @@
+fragment BillingSubscriptionFields on billing_subscription {
+    id
+    _uid
+    _cr
+    installation_uid
+    active
+    workspace_id
+    trial_end
+    canceled_at
+    installation {
+      workspace_id
+      agent {
+        name
+        avatar_url
+        id
+      }
+      id
+    }
+    price {
+      product {
+        name
+        trial_period_days
+      }
+      interval
+      interval_count
+      unit_amount
+    }
+    installation_uid
+    active
+}
+
+subscription BillingSubscriptionForWorkspace($workspace_id: String!) {
+  billing_subscription(
+    where: {workspace: {id: {_eq: $workspace_id}}}
+    order_by: {_cr: desc}
+  ) {
+    ...BillingSubscriptionFields
+  }
+} 

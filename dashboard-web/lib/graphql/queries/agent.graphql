@@ -1,0 +1,10 @@
+query Agent($agent_id: String!) {
+  agent_agent(where: { id: { _eq: $agent_id } }, order_by: { _cr: asc }) {
+    id
+    description
+    _up
+    visibility
+    headline
+    name
+  }
+}

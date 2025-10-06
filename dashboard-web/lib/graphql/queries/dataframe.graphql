@@ -1,0 +1,41 @@
+query fetchDataset($workspace_id: String!) {
+  app_dataset(where: { workspace_id: { _eq: $workspace_id } }) {
+    id
+    _uid
+    _cr
+    _up
+    name
+    workspace_id
+  }
+}
+
+query fetchPublicDataframe {
+  app_dataset {
+    id
+    _uid
+    _up
+    name
+    db_table
+    tags
+  }
+}
+
+query fetchPublicDataframeByPublicSlug($public_slug: String) {
+  app_dataset(
+    where: { public_slug: { _eq: $public_slug } }
+    order_by: { _up: desc_nulls_last }
+  ) {
+    id
+    _uid
+    name
+    db_table
+    tags
+  }
+}
+
+query fetchBlueprintByDataframeId($dataframe_id: String!) {
+  app_blueprint(where: { dataset_id: { _eq: $dataframe_id } }) {
+    slug
+    display_name
+  }
+}

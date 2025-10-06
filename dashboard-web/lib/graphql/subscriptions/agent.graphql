@@ -1,0 +1,240 @@
+# Define the Agent fragment
+fragment AgentFields on agent_agent {
+  id
+  _uid
+  _up
+  _cr
+  name
+  headline
+  description
+  creator_id
+  avatar_url
+  enabled
+  visibility
+  workspace_id
+  default_product_id
+}
+
+fragment AgentInstallationFields on agent_installation {
+  id
+  agent_id
+  _cr
+  _up
+  active
+  subscription {
+    price_id
+    price {
+      product_id
+    }
+  }
+}
+
+fragment DeploymentFields on agent_deployment {
+  _cr
+  duration
+  status
+  user {
+    name
+  }
+}
+
+# Add these new fragments
+fragment PriceFields on billing_price {
+  id
+  unit_amount
+  currency
+  interval
+  interval_count
+}
+
+fragment FeatureFields on billing_feature {
+  id
+  type
+  name
+  quantity
+  is_offered
+}
+
+fragment ProductFields on billing_product {
+  id
+  description
+  name
+  default_price_id
+  trial_period_days
+  price_list (where: {active: {_eq: true}}) {
+    ...PriceFields
+  }
+  feature_list(order_by: { _cr: desc }) {
+    ...FeatureFields
+  }
+}
+
+# Add these new fragments
+fragment AgentChatFields on app_chat {
+  id
+  _cr
+  body_richtext
+  generator_id
+  pair_id
+  type
+}
+
+fragment ThreadFields on app_thread {
+  id
+  _cr
+  _up
+  _uid
+  agent_id
+  title
+  chat_list(order_by: {_cr: desc}) {
+    ...AgentChatFields
+  }
+}
+
+# Updated queries using the fragment
+subscription AgentStream($workspace_id: String!) {
+  agent_agent(where: { workspace_id: { _eq: $workspace_id } }) {
+    ...AgentFields
+    runtime {
+      id
+      dev_status
+    }
+  }
+}
+
+subscription GetAgentInstallStream($workspace_id: String!, $search: String) {
+  agent_installation(
+    where: {
+      _and: { active: { _eq: true }, workspace_id: { _eq: $workspace_id }, agent: { name: { _ilike: $search } } }
+
+    }
+    order_by: { _cr: desc }
+  ) {
+    _cr
+    _uid
+    _up
+    agent_id
+    cron_schedule
+    installer_id
+    id
+    workspace {
+      name
+      id
+    }
+    agent {
+      ...AgentFields
+      creator {
+        name
+        id
+        picture
+      }
+    }
+  }
+}
+
+subscription AgentInstallationByPk($id: String!) {
+  installation: agent_installation_by_pk(id: $id) {
+    ...AgentInstallationFields
+  }
+}
+
+# Then update the queries to use the fragment
+subscription AgentByPk_Editor($id: String!) {
+  agent: agent_agent_by_pk(id: $id) {
+    ...AgentFields
+    runtime {
+      dev_password_hash
+      dev_endpoint
+      last_accessed
+      dev_status
+    }
+    banner_list {
+      id
+      url
+      file_type
+      is_primary
+      original_name
+      _cr
+    }
+    deployment_list(order_by: { _cr: desc }) {
+      ...DeploymentFields
+    }
+    creator {
+      id
+      name
+      picture
+    }
+    thread_list(order_by: { _cr: desc }) {
+      ...ThreadFields
+    }
+    product_list(
+      order_by: { price_list_aggregate: { min: { unit_amount: asc } } }
+    ) {
+      ...ProductFields
+    }
+  }
+}
+
+subscription AgentByPk_Consumer($id: String!) {
+  agent: agent_agent_by_pk(id: $id) {
+    ...AgentFields
+    banner_list {
+      id
+      url
+      file_type
+      is_primary
+      original_name
+      _cr
+    }
+    creator {
+      id
+      name
+      picture
+    }
+    installation_list(where: { active: { _eq: true } }) {
+      id
+      _cr
+    }
+    thread_list(order_by: { _cr: desc }) {
+      ...ThreadFields
+    }
+    product_list(
+      order_by: { price_list_aggregate: { min: { unit_amount: asc } } }
+    ) {
+      ...ProductFields
+    }
+  }
+}
+
+subscription AgentSubscriptions($agent_id: String!) {
+  agent_installation(
+    where: { agent_id: { _eq: $agent_id } }
+  ) {
+    subscriptions {
+      workspace {
+        name
+        image_key
+      }
+      user {
+        name
+        picture
+        email
+      }
+      active
+      _cr
+      trial_end
+      canceled_at
+      price {
+        product {
+          name
+          price {
+            currency
+            interval
+            interval_count
+            unit_amount
+          }
+        }
+      }
+    }
+  }
+}

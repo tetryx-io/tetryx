@@ -1,0 +1,240 @@
+.loader-btn {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid rgb(0 0 0 / 85%);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.select-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  &__button {
+    padding: 10px 10px;
+    width: 100%;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+    min-height: 43px;
+    &::focus {
+      outline: none;
+    }
+
+    .zmdi-chevron-down {
+      position: absolute;
+      right: 10px;
+      top: 15px;
+    }
+  }
+
+  &__list {
+    position: absolute;
+    display: block;
+    left: 0;
+    right: 0;
+    height: auto;
+    overflow: auto;
+    margin: 2px 0px;
+    padding: 0;
+    list-style-type: none;
+    opacity: 0;
+    pointer-events: none;
+    transform-origin: top left;
+    transform: scale(1, 0);
+    transition: all ease-in-out 0.3s;
+    z-index: 2;
+
+    &.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1, 1);
+    }
+  }
+
+  &__list-item {
+    display: block;
+    list-style-type: none;
+    padding: 10px 10px;
+    background: #fff;
+    border-top: 1px solid #e6e6e6;
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+    color: #616161;
+    transition: all ease-in-out 0.3s;
+  }
+}
+
+.nnifty-select {
+  &.secondry {
+    button {
+      color: #ffff;
+    }
+  }
+  &.small-select {
+    button {
+      min-height: 25px;
+      min-width: 100px;
+      font-size: 10px;
+      height: 25px;
+      padding: 2px 7px;
+    }
+    i {
+      top: 12px;
+    }
+  }
+}
+
+.color-box {
+  width: 15px;
+  height: 100%;
+}
+
+.nnifty-tab {
+  border-bottom: 1px solid #000;
+}
+
+.tab-header {
+  text-align: center;
+  padding: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #000;
+  width: 100%;
+  &.active {
+    color: #fff;
+  }
+}
+
+.nnifty-modal {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  height: auto;
+  width: auto;
+  z-index: 999;
+
+  &__container {
+    justify-content: center;
+    margin: 10px;
+    padding: 10px;
+
+    &--body {
+      margin-top: 15px;
+    }
+  }
+}
+
+.nnifty-animated-div {
+  .content {
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    border-radius: 5px;
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+    margin: 5px 0px;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.nnixfty-detail-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  height: 100vh;
+  z-index: 2;
+  transition: transform 500ms ease-out;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+  &-container {
+    position: relative;
+    margin: 10px;
+    margin-top: 20px;
+
+    &__tab {
+      border-bottom: 1px solid #d1d5db;
+
+      &--header {
+        color: #6b7280;
+        &.active {
+          color: #000;
+          .active_name {
+            border-bottom: 1px solid #000;
+          }
+        }
+        .margin_left {
+          margin-left: 40px;
+        }
+      }
+    }
+
+    &__body {
+      margin: 20px;
+      padding-left: 20px;
+      height: calc(100vh - 115px);
+    }
+  }
+}
+
+.table_header_fixed {
+  overflow: auto;
+  height: calc(100vh - 195px); /* Should update according to height */
+
+  thead th {
+    position: sticky;
+    top: 0px;
+  }
+  table {
+    width: 100%;
+    border-spacing: 0px;
+  }
+  th {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+  }
+  td {
+    word-wrap: break-word;
+    padding-bottom: 5px;
+    border: 1px solid #ccc;
+  }
+}
+
+.pagination_container {
+  height: 50px;
+  padding: 10px;
+  top: 72px;
+  left: 30px;
+}

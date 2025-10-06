@@ -1,0 +1,26 @@
+subscription AgentInstallationFile($agent_installation_id: String) {
+  file: app_file(
+    where: {
+      _and: [
+        { agent_installation_id: { _eq: $agent_installation_id } },
+        { app_type: { _eq: "INSTALLATION" } }
+      ]
+    }
+    order_by: { _cr: desc }
+  ) {
+    presigned_url
+    id
+    _cr
+    original_name
+    type
+  }
+}
+
+subscription FileList($fileIds: [String!]!) {
+  file_list: app_file(where: { id: { _in: $fileIds } }) {
+    presigned_url
+    original_name
+    id
+    chat_id
+  }
+}

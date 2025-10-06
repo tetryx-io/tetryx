@@ -1,0 +1,68 @@
+subscription GetNamespaceMembershipStream($user_id: String!) {
+  workspace_membership: app_workspace_membership(
+    where: { user_id: { _eq: $user_id } }
+  ) {
+    id
+    _uid
+    _cr
+    _up
+    workspace_id
+    role
+    workspace {
+      id
+      _uid
+      name
+      image_key
+      stripe_customer_id
+      plan_id
+    }
+  }
+}
+
+subscription GetNamespaceMembersStream($workspace_id: String!) {
+  workspace_membership: app_workspace_membership(
+    where: { workspace_id: { _eq: $workspace_id } }
+  ) {
+    id
+    _uid
+    _cr
+    _up
+    workspace_id
+    role
+    user {
+      id
+      _uid
+      _cr
+      _up
+      name
+      email
+      picture
+      last_seen
+      #      preferred_name
+    }
+  }
+}
+
+subscription GetCompanyAndWorkspaceByUserId($user_id: String!) {
+  workspace: app_workspace(
+    where: { membership_list: { user_id: { _eq: $user_id } } }
+  ) {
+    id
+    _uid
+    name
+    image_key
+    stripe_customer_id
+    plan_id
+  }
+}
+
+subscription GetPendingInvites {
+  app_invite(
+    where: { status: { _eq: "PENDING" } }
+  ) {
+    id
+    _uid
+    email
+    role
+  }
+}

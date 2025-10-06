@@ -148,6 +148,23 @@ let
     };
   } // extraArgs);
 
+  # Dashboard web interface
+  tetryx-dashboard = craneLib.buildPackage ({
+    pname = "tetryx-dashboard";
+
+    inherit src version nativeBuildInputs buildInputs;
+
+    # See comment in `tetryx-tests`
+    doCheck = false;
+
+    cargoExtraArgs = "-p tetryx-dashboard";
+
+    meta = {
+      description = "Web dashboard for Tetryx space operations platform";
+      mainProgram = "tetryx-dash";
+    };
+  } // extraArgs);
+
   # Tetryx interacts with Nix directly and its tests require trusted-user access
   # to nix-daemon to import NARs, which is not possible in the build sandbox.
   # In the CI pipeline, we build the test executable inside the sandbox, then
@@ -176,5 +193,5 @@ let
     '';
   } // extraArgs);
 in {
-  inherit cargoArtifacts tetryx tetryx-client tetryx-server tetryx-tests;
+  inherit cargoArtifacts tetryx tetryx-client tetryx-server tetryx-dashboard tetryx-tests;
 }
