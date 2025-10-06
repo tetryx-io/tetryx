@@ -1,7 +1,7 @@
 //! HTTP middlewares for access control.
 
 use tetryx::cache::CacheName;
-use attic_token::util::parse_authorization_header;
+use tetryx_token::util::parse_authorization_header;
 use axum::{extract::Request, middleware::Next, response::Response};
 use sea_orm::DatabaseConnection;
 use tokio::sync::OnceCell;

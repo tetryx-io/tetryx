@@ -8,7 +8,7 @@ use std::time::Duration;
 
 use anyhow::Result;
 use async_compression::Level as CompressionLevel;
-use attic_token::SignatureType;
+use tetryx_token::SignatureType;
 use base64::{engine::general_purpose::STANDARD as BASE64_STANDARD, Engine};
 use serde::{de, Deserialize};
 use xdg::BaseDirectories;
