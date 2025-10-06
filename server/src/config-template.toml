@@ -142,7 +142,7 @@ type = "zstd"
 # beneficial to manage limited storage resources effectively.
 #
 # If zero, automatic garbage collection is disabled, but
-# it can still be run manually with `atticd --mode garbage-collector-once`.
+# it can still be run manually with `tetryxd --mode garbage-collector-once`.
 interval = "12 hours"
 
 # Default retention period for space operations

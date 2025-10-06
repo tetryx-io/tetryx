@@ -29,8 +29,8 @@ in stdenv.mkDerivation {
     }
 
     emitColorizedHelp tetryx
-    emitColorizedHelp atticd
-    emitColorizedHelp atticadm
+    emitColorizedHelp tetryxd
+    emitColorizedHelp tetryxadm
 
     mdbook build -d ./build
     cp -r ./build $out

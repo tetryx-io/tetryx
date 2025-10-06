@@ -307,7 +307,7 @@ pub struct GarbageCollectionConfig {
     /// The frequency to run garbage collection at.
     ///
     /// If zero, automatic garbage collection is disabled, but
-    /// it can still be run manually with `atticd --mode garbage-collector-once`.
+    /// it can still be run manually with `tetryxd --mode garbage-collector-once`.
     #[serde(with = "humantime_serde", default = "default_gc_interval")]
     pub interval: Duration,
 

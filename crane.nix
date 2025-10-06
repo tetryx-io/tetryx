@@ -123,7 +123,7 @@ let
   #
   # Because of Cargo's feature unification, the common `tetryx` crate always
   # has the `nix_store` feature enabled if the client and server are built
-  # together, leading to `atticd` linking against `libnixstore` as well. This
+  # together, leading to `tetryxd` linking against `libnixstore` as well. This
   # package is slimmer with more optimization.
   #
   # We don't enable fat LTO in the default `tetryx` package since it
@@ -144,7 +144,7 @@ let
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS = "1";
 
     meta = {
-      mainProgram = "atticd";
+      mainProgram = "tetryxd";
     };
   } // extraArgs);
 

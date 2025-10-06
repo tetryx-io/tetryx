@@ -2,11 +2,11 @@
 let
   inherit (lib) types;
 
-  serverConfigFile = config.nodes.server.services.atticd.configFile;
+  serverConfigFile = config.nodes.server.services.tetryxd.configFile;
 
   cmd = {
-    atticadm = ". /etc/atticd.env && export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64 && atticd-atticadm";
-    atticd = ". /etc/atticd.env && export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64 && atticd -f ${serverConfigFile}";
+    tetryxadm = ". /etc/tetryxd.env && export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64 && tetryxd-tetryxadm";
+    tetryxd = ". /etc/tetryxd.env && export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64 && tetryxd -f ${serverConfigFile}";
   };
 
   makeTestDerivation = pkgs.writeShellScript "make-drv" ''
@@ -34,7 +34,7 @@ let
         from pathlib import Path
         import os
 
-        schema = server.succeed("${pkgs.sqlite}/bin/sqlite3 /var/lib/atticd/server.db '.schema --indent'")
+        schema = server.succeed("${pkgs.sqlite}/bin/sqlite3 /var/lib/tetryxd/server.db '.schema --indent'")
 
         schema_path = Path(os.environ.get("out", os.getcwd())) / "schema.sql"
         with open(schema_path, 'w') as f:
@@ -48,7 +48,7 @@ let
           ensureDatabases = [ "tetryx" ];
           ensureUsers = [
             {
-              name = "atticd";
+              name = "tetryxd";
             }
 
             # For testing only - Don't actually do this
@@ -62,10 +62,10 @@ let
         };
 
         systemd.services.postgresql-setup.postStart = lib.mkAfter ''
-          psql -tAc 'ALTER DATABASE "tetryx" OWNER TO "atticd"'
+          psql -tAc 'ALTER DATABASE "tetryx" OWNER TO "tetryxd"'
         '';
 
-        services.atticd.settings = {
+        services.tetryxd.settings = {
           database.url = "postgresql:///tetryx?host=/run/postgresql";
         };
       };
@@ -102,7 +102,7 @@ let
 
         networking.firewall.allowedTCPPorts = [ 9000 ];
 
-        services.atticd.settings = {
+        services.tetryxd.settings = {
           storage = {
             type = "s3";
             endpoint = "http://server:9000";
@@ -140,19 +140,19 @@ in {
     nodes = {
       server = {
         imports = [
-          flake.nixosModules.atticd
+          flake.nixosModules.tetryxd
           (databaseModules.${config.database}.server or {})
           (storageModules.${config.storage}.server or {})
         ];
 
         # For testing only - Don't actually do this
-        environment.etc."atticd.env".text = ''
+        environment.etc."tetryxd.env".text = ''
           ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64='LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBekhqUzFGKzlRaFFUdlJZYjZ0UGhxS09FME5VYkIraTJMOTByWVBNQVVoYVBUMmlKCmVUNk9vWFlmZWszZlZ1dXIrYks1VWFVRjhUbEx2Y1FHa1Arckd0WDRiQUpGTWJBcTF3Y25FQ3R6ZGVERHJnSlIKMGUvNWJhdXQwSS9YS0ticG9oYjNvWVhtUmR5eG9WVGE3akY1bk11ajBsd25kUTcwYTF1ZGkzMGNpYkdTWHZMagpVeGltL3ByYjUrV3ZPdjN4UnhlbDZHYmptUW1RMVBHeHVLcmx3b1ZKRnlWTjl3QmExajBDelJDcURnTFRwQWw0CjhLVWlDY2V1VUZQcmdZaW9vSVhyVExlWmxVbFVVV3FHSDBJbGFKeVUyQ05iNWJtZWM1TnZ4RDlaakFoYytucmgKRS80VzkxajdQMFVyQnp4am9NUTRlKzBPZDhmQnBvSDAwbm4xUXdJREFRQUJBb0lCQUE2RmxEK21Ed3gyM1pJRAoxSGJBbHBuQ0IwaEhvbFJVK0Q5OC96d3k5ZlplaU00VWVCTUcyTjFweE1HTWIweStqeWU4UkVJaXJNSGRsbDRECllvNEF3bmUwODZCRUp3TG81cG4vOVl2RjhqelFla1ZNLzkrZm9nRGlmUVUvZWdIMm5NZzR4bHlQNUhOWXdicmEKQ25SNVNoQlRQQzdRQWJOa0hRTFU3bUwrUHowZUlXaG9KWVRoUUpkU0g3RDB0K1QwZzVVNDdPam5qbXJaTWwxaApHOE1IUHhKMk5WU1l2N0dobnpjblZvcVVxYzlxeldXRDZXZERtV1BPNGJ1K2p0b2E2U2o4cjJtb0RRZ1A5YXNhCm93RUFJbHBmbVkxYUx2dENwWG4rejRTTWJKcHRXMlVvaktGa2dkYm9jZmtXYWdtSGZRa2xmS0dBQ0hibU9ZV24KeDRCbTU3a0NnWUVBN1dXaXJDZnBRR01hR3A2WWxMQlVUc1VJSXJOclF4UmtuRlc3dFVYd0NqWFZ5SDlTR3FqNgphTkNhYzZpaks3QVNBYXlxY1JQRjFPY2gyNmxpVmRKUHNuRGxwUjhEVXB2TzRVOVRzSTJyZ1lZYzNrSWkzVGFKClgzV0Vic1Z6Nk45WXFPSXlnVnZiTEhLS0F4Uyt4b1Z2SjkzQmdWRHN5SkxRdmhrM3VubXk3M2tDZ1lFQTNINnYKeUhOKzllOVAyOS9zMVY1eWZxSjdvdVdKV0lBTHFDYm9zOTRRSVdPSG5HRUtSSGkydWIzR0d6U2tRSzN1eTUrdQo4M0txaFJOejRVMkdOK1pLaFE0NHhNVmV4TUVvZzJVU3lTaVZ0cFdqWXBwT2Q1NnVaMzRWaFU2TWRNZS9zT0JnCnNoei84MUxUSis2cHdFZE9wV2tPVlRaMXJISlZXQmdtVk5qWjc1c0NnWUVBNVd5YjBaU2dyMEVYTVRLa2NzNFcKTENudXV0cDZodEZtaWsrd29IZCtpOStMUThFSU1BdXVOUzJrbHJJYlAxVmhrWXkxQzZMNFJkRTV2M2ZyT05XUApmL3ZyYzdDTkhZREdacWlyVUswWldvdXB5b0pQLzBsOWFXdkJHT3hxSUZ2NDZ2M3ZvV1NNWkdBdFVOenpvaGZDClhOeks3WmF2dndka0JOT0tNQVQ5RU1FQ2dZRUF3NEhaWDRWNUo1d2dWVGVDQ2RjSzhsb2tBbFpBcUNZeEw5SUEKTjZ4STVUSVpSb0dNMXhXcC81dlRrci9rZkMwOU5YUExiclZYbVZPY1JrTzFKTStmZDhjYWN1OEdqck11dHdMaAoyMWVQR0N3cWlQMkZZZTlqZVFTRkZJU0hhZXpMZll3V2NSZmhvdURudGRxYXpaRHNuU0kvd1RMZXVCOVFxU0lRCnF0NzByczBDZ1lCQ2lzV0VKdXpQUUlJNzVTVkU4UnJFZGtUeUdhOEVBOHltcStMdDVLRDhPYk80Q2JHYVFlWXkKWFpjSHVyOFg2cW1lWHZVU3MwMHBMMUdnTlJ3WCtSUjNMVDhXTm9vc0NqVDlEUW9GOFZveEtseDROVTRoUGlrTQpBc0w1RS9wYnVLeXkvSU5LTnQyT3ZPZmJYVitlTXZQdGs5c1dORjNyRTBYcU15TW9maG9NaVE9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo='
         '';
 
-        services.atticd = {
+        services.tetryxd = {
           enable = true;
-          environmentFile = "/etc/atticd.env";
+          environmentFile = "/etc/tetryxd.env";
           settings = {
             listen = "[::]:8080";
 
@@ -185,11 +185,11 @@ in {
       ${databaseModules.${config.database}.testScript or ""}
       ${storageModules.${config.storage}.testScript or ""}
 
-      server.wait_for_unit('atticd.service')
+      server.wait_for_unit('tetryxd.service')
       client.wait_until_succeeds("curl -sL http://server:8080", timeout=40)
 
-      root_token = server.succeed("${cmd.atticadm} make-token --sub 'e2e-root' --validity '1 month' --push '*' --pull '*' --delete '*' --create-cache '*' --destroy-cache '*' --configure-cache '*' --configure-cache-retention '*' </dev/null").strip()
-      readonly_token = server.succeed("${cmd.atticadm} make-token --sub 'e2e-root' --validity '1 month' --pull 'test' </dev/null").strip()
+      root_token = server.succeed("${cmd.tetryxadm} make-token --sub 'e2e-root' --validity '1 month' --push '*' --pull '*' --delete '*' --create-cache '*' --destroy-cache '*' --configure-cache '*' --configure-cache-retention '*' </dev/null").strip()
+      readonly_token = server.succeed("${cmd.tetryxadm} make-token --sub 'e2e-root' --validity '1 month' --pull 'test' </dev/null").strip()
 
       client.succeed(f"tetryx login --set-default root http://server:8080 {root_token}")
       client.succeed(f"tetryx login readonly http://server:8080 {readonly_token}")
@@ -250,12 +250,12 @@ in {
           client.succeed(f"curl -sL --fail-with-body http://server:8080/test/{test_file_hash}.narinfo")
           client.succeed("tetryx cache configure test --retention-period 1s")
           time.sleep(2)
-          server.succeed("${cmd.atticd} --mode garbage-collector-once")
+          server.succeed("${cmd.tetryxd} --mode garbage-collector-once")
           client.fail(f"curl -sL --fail-with-body http://server:8080/test/{test_file_hash}.narinfo")
 
       ${lib.optionalString (config.storage == "local") ''
       with subtest("Check that all chunks are actually deleted after GC"):
-          files = server.succeed("find /var/lib/atticd/storage -type f ! -name 'VERSION'")
+          files = server.succeed("find /var/lib/tetryxd/storage -type f ! -name 'VERSION'")
           print(f"Remaining files: {files}")
           assert files.strip() == "", "Some files remain after GC: " + files
       ''}

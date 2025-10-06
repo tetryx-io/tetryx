@@ -16,10 +16,10 @@ let
       "cache destroy"
       "cache info"
     ];
-    atticd = [
+    tetryxd = [
       null
     ];
-    atticadm = [
+    tetryxadm = [
       null
       "make-token"
     ];
