@@ -1,9 +1,14 @@
 # Introduction
 
-**Tetryx** is a self-hostable Nix Binary Cache server backed by an S3-compatible storage provider.
-It has support for global deduplication and garbage collection.
+**Tetryx** is the "Supabase for Space" - an open-source platform designed to accelerate space operations through modern software development practices. While it includes a powerful self-hostable Nix Binary Cache server backed by S3-compatible storage with global deduplication and garbage collection, Tetryx is expanding into a comprehensive "open space" stack.
 
-Tetryx is still an early prototype and is looking for more testers. Want to jump in? [Start your own Tetryx server](./tutorial.md) in 15 minutes.
+The platform aims to provide:
+- **Satellite Pass Automation**: Automated scheduling and execution of satellite communication passes
+- **Groundstation Operations**: Database and APIs for managing groundstation resources and operations
+- **Mission Planning Tools**: Software for coordinating space missions and satellite operations
+- **Developer Infrastructure**: Nix-based binary cache and deployment tools optimized for space software development
+
+Tetryx is still an early prototype expanding beyond binary caching into space operations. Want to jump in? [Start your own Tetryx server](./tutorial.md) in 15 minutes.
 
 ```
 ⚙️ Pushing 5 paths to "demo" on "local" (566 already cached, 2001 in upstream)...
@@ -16,8 +21,14 @@ Tetryx is still an early prototype and is looking for more testers. Want to jump
 
 ## Goals
 
-- **Multi-Tenancy**: Create a private cache for yourself, and one for friends and co-workers. Tenants are mutually untrusting and cannot pollute the views of other caches.
-- **Global Deduplication**: Individual caches (tenants) are simply restricted views of the content-addressed NAR Store and Chunk Store. When paths are uploaded, a mapping is created to grant the local cache access to the global NAR.
-- **Managed Signing**: Signing is done on-the-fly by the server when store paths are fetched. The user pushing store paths does not have access to the signing key.
-- **Scalability**: Tetryx can be easily replicated. It's designed to be deployed to serverless platforms like fly.io but also works nicely in a single-machine setup.
-- **Garbage Collection**: Unused store paths can be garbage-collected in an LRU manner.
+**Space Operations Platform:**
+- **Mission-Oriented Multi-Tenancy**: Create isolated environments for different space missions, satellite operators, and research teams. Each tenant operates independently without interfering with others' space operations.
+- **Satellite Pass Automation**: Automate the complex scheduling and execution of satellite communication passes, including conflict resolution and resource optimization.
+- **Groundstation Resource Management**: Centralized database and APIs for managing distributed groundstation networks, antennas, and communication equipment.
+- **Real-time Space Operations**: Live monitoring, telemetry processing, and command & control for space assets.
+
+**Developer Infrastructure:**
+- **Global Deduplication**: Individual caches are restricted views of the content-addressed NAR Store and Chunk Store, enabling efficient sharing of space software components across missions.
+- **Managed Signing**: Cryptographic signing is handled server-side for security in space-critical applications where signing keys must be protected.
+- **Scalability**: Designed for deployment from single groundstations to distributed space operations centers, supporting serverless and cloud-native architectures.
+- **Garbage Collection**: Automated cleanup optimized for resource-constrained space environments where storage and bandwidth are precious.

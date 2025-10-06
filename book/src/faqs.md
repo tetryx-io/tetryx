@@ -5,11 +5,11 @@
 ## Does it replace [Cachix](https://www.cachix.org)?
 
 No, it does not.
-Cachix is an awesome product and the direct inspiration for the user experience of Tetryx.
-It works at a much larger scale than Tetryx and is a proven solution.
-Numerous open-source projects in the Nix community (including mine!) use Cachix to share publicly-available binaries.
+Cachix is an awesome product and the direct inspiration for the user experience of Tetryx's binary cache component.
+Cachix works at a much larger scale and is a proven solution for the broader Nix community.
+Numerous open-source projects use Cachix to share publicly-available binaries.
 
-Tetryx can be thought to provide a similar user experience at a much smaller scale (personal or team use).
+Tetryx provides a specialized platform for space operations that includes binary caching as one component of a larger "open space" stack. While the binary cache functionality is similar to Cachix at a smaller scale (mission or organization use), Tetryx's goal is to become the comprehensive platform for space software development and operations - including satellite pass automation, groundstation management, and mission coordination.
 
 ## What happens if a user uploads a path that is already in the global cache?
 
@@ -23,14 +23,14 @@ When disabled, uploads of NARs that already exist in the Global NAR Store will i
 
 ## What happens if a user uploads a path with incorrect/malicious metadata?
 
-They will only pollute their own cache.
-Path metadata (store path, references, deriver, etc.) are associated with the local cache and the global cache only contains content-addressed NARs and chunks that are "context-free."
+They will only pollute their own cache or mission environment.
+Path metadata (store path, references, deriver, etc.) are associated with the local cache and the global cache only contains content-addressed NARs and chunks that are "context-free." This isolation is crucial for space operations where different missions and organizations must operate independently without interfering with each other's software deployments.
 
 ## How is authentication handled?
 
-Authentication is done via signed JWTs containing the allowed permissions.
-Each instance of `atticd --mode api-server` is stateless.
-This design may be revisited later, with option for a more stateful method of authentication.
+Authentication is done via signed JWTs containing the allowed permissions. This stateless approach is well-suited for space operations where reliable, auditable access control is essential.
+Each instance of `atticd --mode api-server` is stateless and can be deployed across distributed groundstations.
+This design may be enhanced later with additional authentication methods suitable for space operations, potentially including integration with space-specific identity providers and mission control systems.
 
 ## On what granularity is deduplication done?
 

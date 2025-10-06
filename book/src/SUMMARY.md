@@ -9,5 +9,5 @@
 - [FAQs](./faqs.md)
 - [Reference](./reference/README.md)
     - [tetryx](./reference/tetryx-cli.md)
-    - [atticd](./reference/atticd-cli.md)
-    - [atticadm](./reference/atticadm-cli.md)
+    - [tetryx daemon](./reference/tetyxd-cli.md)
+    - [tetryx admin](./reference/tetryxadm-cli.md)

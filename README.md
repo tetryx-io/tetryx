@@ -1,9 +1,10 @@
 # Tetryx
 
-**Tetryx** is a self-hostable Nix Binary Cache server backed by an S3-compatible storage provider.
-It has support for global deduplication and garbage collection.
+**Tetryx** is the "Supabase for Space" - an open-source platform for space operations that includes a self-hostable Nix Binary Cache server, satellite pass automation backend, groundstation operations database and APIs, and more.
 
-Tetryx is an early prototype.
+The platform is designed to enable rapid development and deployment of space software systems with modern DevOps practices, featuring a Nix-based binary cache server with global deduplication and garbage collection as its foundation.
+
+Tetryx is an early prototype expanding into a comprehensive space operations stack.
 
 ```
 ⚙️ Pushing 5 paths to "demo" on "local" (566 already cached, 2001 in upstream)...
@@ -21,11 +22,18 @@ And yes, it works on macOS too!
 
 ## Goals
 
-- **Multi-Tenancy**: Create a private cache for yourself, and one for friends and co-workers. Tenants are mutually untrusting and cannot pollute the views of other caches.
-- **Global Deduplication**: Individual caches (tenants) are simply restricted views of the content-addressed NAR Store and Chunk Store. When paths are uploaded, a mapping is created to grant the local cache access to the global NAR.
-- **Managed Signing**: Signing is done on-the-fly by the server when store paths are fetched. The user pushing store paths does not have access to the signing key.
-- **Scalabilty**: Tetryx can be easily replicated. It's designed to be deployed to serverless platforms like fly.io but also works nicely in a single-machine setup.
-- **Garbage Collection**: Unused store paths can be garbage-collected in an LRU manner.
+**Space Operations Platform:**
+- **Satellite Pass Automation**: Automated scheduling and execution of satellite communication passes
+- **Groundstation Operations**: Database and APIs for managing groundstation resources and operations
+- **Mission Planning**: Tools for planning and coordinating space missions and satellite operations
+- **Real-time Monitoring**: Live monitoring and telemetry processing for space assets
+
+**Developer Infrastructure (Nix Binary Cache):**
+- **Multi-Tenancy**: Create isolated environments for different missions, teams, and organizations. Tenants are mutually untrusting and cannot interfere with each other's operations.
+- **Global Deduplication**: Individual caches are restricted views of the content-addressed store, enabling efficient sharing of common space software components.
+- **Managed Signing**: Cryptographic signing is handled server-side, ensuring integrity without exposing private keys.
+- **Scalability**: Designed for deployment on modern cloud platforms and serverless infrastructure, from single-node setups to distributed space operations centers.
+- **Garbage Collection**: Automated cleanup of unused artifacts to maintain optimal performance in resource-constrained environments.
 
 ## Licensing
 

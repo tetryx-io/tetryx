@@ -1,4 +1,4 @@
-//! Server configuration.
+//! Tetryx space operations server configuration.
 
 use std::collections::HashSet;
 use std::env;
@@ -45,7 +45,7 @@ const ENV_TOKEN_RS256_PUBKEY_BASE64: &str = "ATTIC_SERVER_TOKEN_RS256_PUBKEY_BAS
 /// Environment variable storing the database connection string.
 const ENV_DATABASE_URL: &str = "ATTIC_SERVER_DATABASE_URL";
 
-/// Configuration for the Tetryx Server.
+/// Configuration for the Tetryx Space Operations Server.
 #[derive(Clone, Deserialize, derive_more::Debug)]
 #[serde(deny_unknown_fields)]
 pub struct Config {

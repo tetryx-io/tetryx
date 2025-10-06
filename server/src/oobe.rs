@@ -1,10 +1,10 @@
-//! Guided out-of-box experience.
+//! Guided out-of-box experience for Tetryx space operations platform.
 //!
-//! This performs automatic setup for people running `atticd`
-//! directly without specifying any configurations. The goal is
-//! to let them quickly have a taste of Tetryx with a config
-//! template that provide guidance for them to achieve a more
-//! permanent setup.
+//! This performs automatic setup for space software developers and operators
+//! running `atticd` directly without specifying any configurations. The goal is
+//! to let them quickly experience Tetryx's space operations capabilities with a config
+//! template that provides guidance for achieving a more permanent deployment
+//! suitable for production space operations.
 //!
 //! Paths:
 //! - Config: `~/.config/tetryx/server.yaml`

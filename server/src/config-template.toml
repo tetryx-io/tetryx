@@ -1,78 +1,91 @@
-# Socket address to listen on
+# Tetryx Space Operations Platform Configuration
+#
+# This configuration enables Tetryx as your "Supabase for Space" - providing
+# binary cache services, satellite pass automation, groundstation management,
+# and mission coordination capabilities.
+
+# Socket address to listen on for space operations API
 listen = "[::]:8080"
 
 # Allowed `Host` headers
 #
-# This _must_ be configured for production use. If unconfigured or the
-# list is empty, all `Host` headers are allowed.
+# This _must_ be configured for production space operations. If unconfigured or the
+# list is empty, all `Host` headers are allowed. For distributed groundstation
+# deployments, include all groundstation endpoints.
 allowed-hosts = []
 
-# The canonical API endpoint of this server
+# The canonical API endpoint of this space operations server
 #
-# This is the endpoint exposed to clients in `cache-config` responses.
+# This is the endpoint exposed to space software clients and groundstation systems.
 #
-# This _must_ be configured for production use. If not configured, the
+# This _must_ be configured for production space operations. If not configured, the
 # API endpoint is synthesized from the client's `Host` header which may
-# be insecure.
+# be insecure in space communication environments.
 #
-# The API endpoint _must_ end with a slash (e.g., `https://domain.tld/tetryx/`
-# not `https://domain.tld/tetryx`).
-#api-endpoint = "https://your.domain.tld/"
+# The API endpoint _must_ end with a slash (e.g., `https://mission-control.space/tetryx/`
+# not `https://mission-control.space/tetryx`).
+#api-endpoint = "https://your-space-ops.domain.tld/"
 
 # The maximum size of the upload info JSON, in bytes.
 #max-nar-info-size = 1048576 # 1 MiB
 
-# Whether to soft-delete caches
+# Whether to soft-delete mission caches
 #
-# If this is enabled, caches are soft-deleted instead of actually
+# If this is enabled, mission caches are soft-deleted instead of actually
 # removed from the database. Note that soft-deleted caches cannot
 # have their names reused as long as the original database records
-# are there.
+# are there. Recommended for space operations to maintain audit trails.
 #soft-delete-caches = false
 
 # Whether to require fully uploading a NAR if it exists in the global cache.
 #
 # If set to false, simply knowing the NAR hash is enough for
 # an uploader to gain access to an existing NAR in the global
-# cache.
+# cache. In space environments with limited bandwidth, this can
+# significantly reduce upload times for shared components.
 #require-proof-of-possession = true
 
-# Database connection
+# Space Operations Database Configuration
 [database]
 # Connection URL
 #
-# For production use it's recommended to use PostgreSQL.
+# For production space operations it's recommended to use PostgreSQL
+# for reliability and performance in mission-critical environments.
 url = "%database_url%"
 
 # Whether to enable sending on periodic heartbeat queries
 #
-# If enabled, a heartbeat query will be sent every minute
+# If enabled, a heartbeat query will be sent every minute.
+# Recommended for space operations to ensure database connectivity.
 #heartbeat = false
 
-# File storage configuration
+# Space Operations Storage Configuration
 [storage]
 # Storage type
 #
-# Can be "local" or "s3".
+# Can be "local" or "s3". For distributed space operations across
+# multiple groundstations, S3-compatible storage is recommended.
 type = "local"
 
-# ## Local storage
+# ## Local storage (suitable for single groundstation deployments)
 
-# The directory to store all files under
+# The directory to store all space software artifacts under
 path = "%storage_path%"
 
-# ## S3 Storage (set type to "s3" and uncomment below)
+# ## S3 Storage (recommended for multi-site space operations)
+# Set type to "s3" and uncomment below for distributed deployments
 
-# The AWS region
+# The AWS region (or compatible region for space operations)
 #region = "us-east-1"
 
-# The name of the bucket
-#bucket = "some-bucket"
+# The name of the bucket for space operations data
+#bucket = "space-ops-tetryx-storage"
 
 # Custom S3 endpoint
 #
-# Set this if you are using an S3-compatible object storage (e.g., Minio).
-#endpoint = "https://xxx.r2.cloudflarestorage.com"
+# Set this if you are using an S3-compatible object storage service
+# suitable for space operations (e.g., Minio, Cloudflare R2).
+#endpoint = "https://space-ops.r2.cloudflarestorage.com"
 
 # Credentials
 #
@@ -82,26 +95,31 @@ path = "%storage_path%"
 #  access_key_id = ""
 #  secret_access_key = ""
 
-# Data chunking
+# Space-Optimized Data Chunking
 #
 # Warning: If you change any of the values here, it will be
 # difficult to reuse existing chunks for newly-uploaded NARs
 # since the cutpoints will be different. As a result, the
 # deduplication ratio will suffer for a while after the change.
+# For space operations, chunking is crucial for efficient bandwidth utilization.
 [chunking]
 # The minimum NAR size to trigger chunking
 #
 # If 0, chunking is disabled entirely for newly-uploaded NARs.
 # If 1, all NARs are chunked.
+# Recommended for space operations to enable efficient deduplication.
 nar-size-threshold = 65536 # chunk files that are 64 KiB or larger
 
 # The preferred minimum size of a chunk, in bytes
+# Optimized for space communication links
 min-size = 16384            # 16 KiB
 
 # The preferred average size of a chunk, in bytes
+# Balanced for space bandwidth efficiency
 avg-size = 65536            # 64 KiB
 
 # The preferred maximum size of a chunk, in bytes
+# Ensures manageable transmission over space links
 max-size = 262144           # 256 KiB
 
 # Compression
@@ -114,53 +132,60 @@ type = "zstd"
 # Compression level
 #level = 8
 
-# Garbage collection
+# Space Operations Garbage Collection
 [garbage-collection]
 # The frequency to run garbage collection at
 #
 # By default it's 12 hours. You can use natural language
 # to specify the interval, like "1 day".
+# For space operations, more frequent garbage collection may be
+# beneficial to manage limited storage resources effectively.
 #
 # If zero, automatic garbage collection is disabled, but
 # it can still be run manually with `atticd --mode garbage-collector-once`.
 interval = "12 hours"
 
-# Default retention period
+# Default retention period for space operations
 #
 # Zero (default) means time-based garbage-collection is
-# disabled by default. You can enable it on a per-cache basis.
+# disabled by default. You can enable it on a per-mission-cache basis.
+# For space operations, consider shorter retention periods to manage
+# storage efficiently across distributed groundstations.
 #default-retention-period = "6 months"
 
+# Space Operations Authentication Configuration
 [jwt]
 # WARNING: Changing _anything_ in this section will break any existing
-# tokens. If you need to regenerate them, ensure that you use the the
+# space operations tokens. If you need to regenerate them, ensure that you use the
 # correct secret and include the `iss` and `aud` claims.
 
-# JWT `iss` claim
+# JWT `iss` claim for space operations
 #
-# Set this to the JWT issuer that you want to validate.
+# Set this to the JWT issuer that you want to validate for space operations.
 # If this is set, all received JWTs will validate that the `iss` claim
-# matches this value.
-#token-bound-issuer = "some-issuer"
+# matches this value. Recommended for production space operations.
+#token-bound-issuer = "mission-control.space"
 
-# JWT `aud` claim
+# JWT `aud` claim for space operations
 #
-# Set this to the JWT audience(s) that you want to validate.
+# Set this to the JWT audience(s) that you want to validate for space operations.
 # If this is set, all received JWTs will validate that the `aud` claim
 # contains at least one of these values.
-#token-bound-audiences = ["some-audience1", "some-audience2"]
+#token-bound-audiences = ["groundstation-ops", "mission-control", "satellite-ops"]
 
 [jwt.signing]
-# JWT RS256 secret key
+# JWT RS256 secret key for space operations
 #
 # Set this to the base64-encoded private half of an RSA PEM PKCS1 key.
+# RSA signing is recommended for space operations due to its security properties.
 # You can also set it via the `ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64`
 # environment variable.
 token-rs256-secret-base64 = "%token_rs256_secret_base64%"
 
-# JWT HS256 secret key
+# JWT HS256 secret key for space operations
 #
 # Set this to the base64-encoded HMAC secret key.
+# While simpler than RSA, ensure this secret is properly secured for space operations.
 # You can also set it via the `ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64`
 # environment variable.
 #token-hs256-secret-base64 = ""
