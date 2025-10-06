@@ -6,12 +6,12 @@ use anyhow::Result;
 use clap::{Parser, Subcommand};
 use enum_as_inner::EnumAsInner;
 
-use attic_server::config;
+use tetryx_server::config;
 use command::make_token::{self, MakeToken};
 
 /// Tetryx server administration utilities.
 #[derive(Debug, Parser)]
-#[clap(version, author = "Zhaofeng Li <hello@zhaofeng.li>")]
+#[clap(version)]
 #[clap(propagate_version = true)]
 pub struct Opts {
     /// Path to the config file.

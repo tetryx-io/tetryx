@@ -10,11 +10,11 @@ use tracing_error::ErrorLayer;
 use tracing_subscriber::prelude::*;
 use tracing_subscriber::EnvFilter;
 
-use attic_server::config;
+use tetryx_server::config;
 
-/// Nix binary cache server.
+/// Tetryx space operations platform server.
 #[derive(Debug, Parser)]
-#[clap(version, author = "Zhaofeng Li <hello@zhaofeng.li>")]
+#[clap(version)]
 #[clap(propagate_version = true)]
 struct Opts {
     /// Path to the config file.
@@ -71,26 +71,26 @@ async fn main() -> Result<()> {
 
     match opts.mode {
         ServerMode::Monolithic => {
-            attic_server::run_migrations(config.clone()).await?;
+            tetryx_server::run_migrations(config.clone()).await?;
 
             let (api_server, _) = join!(
-                attic_server::run_api_server(opts.listen, config.clone()),
-                attic_server::gc::run_garbage_collection(config.clone()),
+                tetryx_server::run_api_server(opts.listen, config.clone()),
+                tetryx_server::gc::run_garbage_collection(config.clone()),
             );
 
             api_server?;
         }
         ServerMode::ApiServer => {
-            attic_server::run_api_server(opts.listen, config).await?;
+            tetryx_server::run_api_server(opts.listen, config).await?;
         }
         ServerMode::GarbageCollector => {
-            attic_server::gc::run_garbage_collection(config.clone()).await;
+            tetryx_server::gc::run_garbage_collection(config.clone()).await;
         }
         ServerMode::DbMigrations => {
-            attic_server::run_migrations(config).await?;
+            tetryx_server::run_migrations(config).await?;
         }
         ServerMode::GarbageCollectorOnce => {
-            attic_server::gc::run_garbage_collection_once(config).await?;
+            tetryx_server::gc::run_garbage_collection_once(config).await?;
         }
         ServerMode::CheckConfig => {
             // config is valid, let's just exit :)
@@ -131,4 +131,9 @@ fn dump_version() {
 
     #[cfg(not(debug_assertions))]
     eprintln!("Tetryx Server {} (release)", env!("CARGO_PKG_VERSION"));
+
+    eprintln!();
+    eprintln!("Supabase for Space - Space Operations Platform");
+    eprintln!("Documentation: https://docs.tetryx.io");
+    eprintln!();
 }

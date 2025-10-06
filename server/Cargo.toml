@@ -6,7 +6,7 @@ license = "Elastic-2.0"
 publish = false
 
 [lib]
-name = "attic_server"
+name = "tetryx_server"
 path = "src/lib.rs"
 
 [[bin]]

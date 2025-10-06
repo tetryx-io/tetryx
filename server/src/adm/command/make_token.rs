@@ -5,8 +5,8 @@ use humantime::Duration;
 
 use crate::Opts;
 use tetryx::cache::CacheNamePattern;
-use attic_server::access::Token;
-use attic_server::config::Config;
+use tetryx_server::access::Token;
+use tetryx_server::config::Config;
 
 /// Generate a new token.
 ///
@@ -14,7 +14,7 @@ use attic_server::config::Config;
 /// to any cache starting with `dev-` and read-only access to `prod`,
 /// expiring in 2 years:
 ///
-/// $ atticadm make-token --sub "alice" --validity "2y" --pull "dev-*" --push "dev-*" --pull "prod"
+/// $ tetryxadm make-token --sub "alice" --validity "2y" --pull "dev-*" --push "dev-*" --pull "prod"
 #[derive(Debug, Parser)]
 pub struct MakeToken {
     /// The subject of the JWT token.
