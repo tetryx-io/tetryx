@@ -1,7 +1,7 @@
 //! Guided out-of-box experience for Tetryx space operations platform.
 //!
 //! This performs automatic setup for space software developers and operators
-//! running `atticd` directly without specifying any configurations. The goal is
+//! running `tetryxd` directly without specifying any configurations. The goal is
 //! to let them quickly experience Tetryx's space operations capabilities with a config
 //! template that provides guidance for achieving a more permanent deployment
 //! suitable for production space operations.
@@ -91,7 +91,7 @@ pub async fn run_oobe() -> Result<()> {
     eprintln!();
     eprintln!("Documentations and guides:");
     eprintln!();
-    eprintln!("    https://docs.tetryx.rs");
+    eprintln!("    https://docs.tetryx.io");
     eprintln!();
     eprintln!("Enjoy!");
     eprintln!("-----------------");

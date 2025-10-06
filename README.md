@@ -15,10 +15,51 @@ Tetryx is an early prototype expanding into a comprehensive space operations sta
 🕓 zoom-5.12.9.367      ███████████████████████████              329.36 MiB (39.47 MiB/s)
 ```
 
-## Try it out (15 minutes)
+## Quick Start
 
-Let's [spin up Tetryx](https://docs.tetryx.rs/tutorial.html) in just 15 minutes.
+### Try it out (15 minutes)
+
+Let's [spin up Tetryx](https://docs.tetryx.io/tutorial.html) in just 15 minutes.
 And yes, it works on macOS too!
+
+### Running the Server
+
+**Option 1: Using Nix (Recommended)**
+```bash
+# Install Tetryx
+nix shell github:zhaofengli/tetryx
+
+# Start the server (monolithic mode with SQLite)
+tetryxd
+```
+
+**Option 2: From Source**
+```bash
+# Clone the repository
+git clone https://github.com/zhaofengli/tetryx.git
+cd tetryx
+
+# Build and run
+nix develop
+cargo build --release
+./target/release/tetryxd
+```
+
+**Option 3: Production Deployment**
+```bash
+# API server only (stateless, can be replicated)
+tetryxd --mode api-server
+
+# Garbage collector (run separately, cannot be replicated)
+tetryxd --mode garbage-collector
+
+# Run garbage collection once
+tetryxd --mode garbage-collector-once
+```
+
+The server will automatically create a configuration at `~/.config/tetryx/server.toml` on first run.
+
+For production deployments, see the [deployment guide](https://docs.tetryx.io/admin-guide/) for PostgreSQL and S3 configuration.
 
 ## Goals
 

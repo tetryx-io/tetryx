@@ -6,10 +6,10 @@ Let's spin up Tetryx, the "Supabase for Space", in just 15 minutes (yes, it work
 $ nix shell github:zhaofengli/tetryx
 ```
 
-Simply run `atticd` to start the Tetryx space operations server in monolithic mode with a SQLite database and local storage. This provides the foundation for your space software development and deployment infrastructure:
+Simply run `tetryxd` to start the Tetryx space operations server in monolithic mode with a SQLite database and local storage. This provides the foundation for your space software development and deployment infrastructure:
 
 ```console
-$ atticd
+$ tetryxd
 Tetryx Server 0.1.0 (release)
 
 -----------------
@@ -25,7 +25,7 @@ Run the following command to log into this server:
 
 Documentations and guides:
 
-    https://docs.tetryx.rs
+    https://docs.tetryx.io
 
 Enjoy!
 -----------------
@@ -39,11 +39,11 @@ Listening on [::]:8080...
 
 ## Cache Creation
 
-`atticd` is the Tetryx space operations server, and `tetryx` is the client for managing space software deployments.
+`tetryxd` is the Tetryx space operations server, and `tetryx` is the client for managing space software deployments.
 We can now log in and create a cache for our space mission or organization:
 
 ```console
-# Copy and paste from the atticd output
+# Copy and paste from the tetryxd output
 $ tetryx login local http://localhost:8080 eyJ...
 ✍️ Configuring server "local"
 
@@ -95,12 +95,12 @@ Note that to pull into the actual Nix Store, your user must be considered [trust
 ## Access Control
 
 Tetryx performs stateless authentication using signed JWT tokens which contain permissions. This is crucial for space operations where access control must be reliable and auditable.
-The root token printed out by `atticd` is all-powerful and should not be shared.
+The root token printed out by `tetryxd` is all-powerful and should not be shared.
 
 Let's create another token that can only access the `mission-alpha` cache:
 
 ```console
-$ atticadm make-token --sub alice --validity '3 months' --pull mission-alpha --push mission-alpha
+$ tetryxadm make-token --sub alice --validity '3 months' --pull mission-alpha --push mission-alpha
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZSIsImV4cCI6MTY4MDI5MzMzOSwiaHR0cHM6Ly9qd3QuYXR0aWMucnMvdjEiOnsiY2FjaGVzIjp7ImhlbGxvIjp7InIiOjEsInciOjF9fX19.XJsaVfjrX5l7p9z76836KXP6Vixn41QJUfxjiK7D-LM
 ```
 
@@ -108,7 +108,7 @@ Let's say Alice is leading a new space mission and wants to have her own caches.
 Instead of creating caches for her, we can let her manage her own mission resources:
 
 ```console
-$ atticadm make-token --sub alice --validity '3 months' --pull 'mission-alice-*' --push 'mission-alice-*' --create-cache 'mission-alice-*'
+$ tetryxadm make-token --sub alice --validity '3 months' --pull 'mission-alice-*' --push 'mission-alice-*' --create-cache 'mission-alice-*'
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGljZSIsImV4cCI6MTY4MDI5MzQyNSwiaHR0cHM6Ly9qd3QuYXR0aWMucnMvdjEiOnsiY2FjaGVzIjp7ImFsaWNlLSoiOnsiciI6MSwidyI6MSwiY2MiOjF9fX19.MkSnK6yGDWYUVnYiJF3tQgdTlqstfWlbziFWUr-lKUk
 ```
 
@@ -144,7 +144,7 @@ Now the retention period is only one second.
 Instead of waiting for the periodic garbage collection to occur (see `server.toml`), let's trigger it manually:
 
 ```bash
-atticd --mode garbage-collector-once
+tetryxd --mode garbage-collector-once
 ```
 
 Now the store path doesn't exist on the cache anymore!
@@ -199,13 +199,13 @@ In just a few commands, we have set up the foundation of our space operations pl
 > Note: Tetryx is an early prototype expanding from binary caching into a comprehensive space operations platform! Everything is subject to change as we build out satellite pass automation, groundstation operations, and mission planning capabilities. APIs may change without backward-compatibility as we develop the space operations features. We'd love to have space software developers and operators give it a try!
 
 **For Production Space Operations:**
-- Set up `atticd` with PostgreSQL and S3-compatible storage for reliability
+- Set up `tetryxd` with PostgreSQL and S3-compatible storage for reliability
 - Deploy behind a load balancer like NGINX with HTTPS for secure space communications
 - Configure distributed deployment across multiple groundstations
 - Take a look at `~/.config/tetryx/server.toml` to see space-specific configuration options!
 
 **Component Architecture:**
-While it's easy to get started by running `atticd` in monolithic mode, for production space operations it's best to run different components separately with `--mode`:
+While it's easy to get started by running `tetryxd` in monolithic mode, for production space operations it's best to run different components separately with `--mode`:
 
 - `api-server`: Stateless and can be replicated across groundstations
 - `garbage-collector`: Performs periodic cleanup; critical for space storage management

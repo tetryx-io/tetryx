@@ -10,12 +10,12 @@ name = "attic_server"
 path = "src/lib.rs"
 
 [[bin]]
-name = "atticd"
+name = "tetryxd"
 path = "src/main.rs"
 doc = false
 
 [[bin]]
-name = "atticadm"
+name = "tetryxadm"
 path = "src/adm/main.rs"
 doc = false
 

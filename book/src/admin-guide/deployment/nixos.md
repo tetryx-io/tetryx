@@ -1,6 +1,6 @@
 # Deploying to NixOS
 
-Tetryx provides [a NixOS module](https://github.com/zhaofengli/tetryx/blob/main/nixos/atticd.nix) that allows you to deploy the Tetryx Server on a NixOS machine.
+Tetryx provides [a NixOS module](https://github.com/zhaofengli/tetryx/blob/main/nixos/tetryxd.nix) that allows you to deploy the Tetryx Server on a NixOS machine.
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ nix run nixpkgs#openssl -- genrsa -traditional 4096 | base64 -w0
 Create a file on the server containing the following contents:
 
 ```
-ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64="output from above"
+TETRYX_SERVER_TOKEN_RS256_SECRET_BASE64="output from above"
 ```
 
 Ensure the file is only accessible by root.
@@ -29,8 +29,8 @@ Ensure the file is only accessible by root.
 
 You can import the module in one of two ways:
 
-- Ad-hoc: Import the `nixos/atticd.nix` from [the repository](https://github.com/zhaofengli/tetryx).
-- Flakes: Add `github:zhaofengli/tetryx` as an input, then import `tetryx.nixosModules.atticd`.
+- Ad-hoc: Import the `nixos/tetryxd.nix` from [the repository](https://github.com/zhaofengli/tetryx).
+- Flakes: Add `github:zhaofengli/tetryx` as an input, then import `tetryx.nixosModules.tetryxd`.
 
 ## Configuration
 
@@ -38,11 +38,11 @@ You can import the module in one of two ways:
 
 ```nix
 {
-  services.atticd = {
+  services.tetryxd = {
     enable = true;
 
     # Replace with absolute path to your environment file
-    environmentFile = "/etc/atticd.env";
+    environmentFile = "/etc/tetryxd.env";
 
     settings = {
       listen = "[::]:8080";
@@ -81,5 +81,5 @@ It's highly recommended to place it behind a reverse proxy like [NGINX](https://
 
 ## Operations
 
-The NixOS module installs the `atticd-atticadm` wrapper which runs the `atticadm` command as the `atticd` user.
-Use this command to [generate new tokens](../../reference/atticadm-cli.md#atticadm-make-token) to be distributed to users.
+The NixOS module installs the `tetryxd-tetryxadm` wrapper which runs the `tetryxadm` command as the `tetryxd` user.
+Use this command to [generate new tokens](../../reference/tetryxadm-cli.md#tetryxadm-make-token) to be distributed to users.
