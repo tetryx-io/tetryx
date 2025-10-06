@@ -9,7 +9,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import AgentCard from "@/components/Pages/Agent/component/AgentCard";
 import AtriumLinesGlow from "./Shared/AtriumGlow";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
 
 const Landing = ({ initialAgentData: agent_data }) => {
 

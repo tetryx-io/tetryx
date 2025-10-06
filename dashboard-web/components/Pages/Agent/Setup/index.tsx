@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { installAgent, uninstallAgent } from "@/lib/services/agent";
 import "react-loading-skeleton/dist/skeleton.css";

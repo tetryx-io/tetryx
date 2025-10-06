@@ -13,7 +13,7 @@ import { DocsProvider, useDocsContext } from "./context";
 import { getMember } from "@/lib/services/notionEditService";
 import { DocsPage, wikiPage } from "@/lib/constant";
 import _get from "lodash/get";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 
 const SearchPanel = ({ children }) => {
   const docs_ctx:any = useDocsContext();

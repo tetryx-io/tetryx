@@ -4,7 +4,7 @@ import React, { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import Input from "@/components/Shared/Input";
 import AuthLayout from "@/components/Layout/AuthLayout";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
 import DefaultButton from "@/components/Shared/Button/DefaultButton";
 
 const ForgotPasswordPage = () => {

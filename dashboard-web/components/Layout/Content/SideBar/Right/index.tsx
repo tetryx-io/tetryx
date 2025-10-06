@@ -16,8 +16,8 @@ import _ from "lodash";
 import { getPageAuthors, getPageTreeTableOfContents } from "@/lib/notion";
 import OmniLink from "@/components/Shared/omnilink";
 import LinkTree from "@/components/Common/LinkTree";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 
 const RightSideBar = ({ page, ...props }:any) => {
   const router = useRouter()

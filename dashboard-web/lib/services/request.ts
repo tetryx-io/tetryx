@@ -1,7 +1,7 @@
 import axios from "axios";
+import { tetryx } from "@/lib/tetryx";
+
 const axiosApiInstance = axios.create();
-import { createClient as createSupabaseClientSide } from "@/lib/supabase/client";
-import { createClient as createSupabaseServerSide } from "@/lib/supabase/server";
 
 // Request interceptor for API calls
 axiosApiInstance.interceptors.request.use(
@@ -10,25 +10,19 @@ axiosApiInstance.interceptors.request.use(
       config.headers = config.headers || {};
       config.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-      const supabase =
-        typeof window === "undefined"
-          ? await createSupabaseServerSide()
-          : await createSupabaseClientSide();
-
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
+      // Get session from Tetryx client
+      const { data, error } = await tetryx.getSession();
 
       if (error) {
-        throw error;
+        console.error("Session error:", error);
+        return Promise.resolve(config);
       }
 
-      if (session) {
-        config.headers["Authorization"] = `Bearer ${session.access_token}`;
+      if (data.session) {
+        config.headers["Authorization"] = `Bearer ${data.session.access_token}`;
         // Set Authorization header in a different way. The Authorization header is not set in the config.headers object
-        // or is being overwritten by the somewhere else.
-        config.headers['AuthZ'] = session.access_token; 
+        // or is being overwritten somewhere else.
+        config.headers['AuthZ'] = data.session.access_token;
       }
 
       return Promise.resolve(config);

@@ -1,6 +1,6 @@
 "use client";
 import { runCurrentPrompt } from "@/lib/services/prompt";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import { useQuery, useSubscription } from "@apollo/client";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";

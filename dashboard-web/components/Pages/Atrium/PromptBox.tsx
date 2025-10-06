@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import { usePathname } from "next/navigation";
 import { RiCloseFill } from "react-icons/ri";
 import { HiDocumentText } from "react-icons/hi2";

@@ -1,5 +1,5 @@
 "use client";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import DefaultButton from "@/components/Shared/Button/DefaultButton";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRef, useState, useEffect, useCallback } from "react";

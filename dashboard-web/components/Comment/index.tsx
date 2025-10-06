@@ -6,8 +6,8 @@ import { getCommentsByPageId } from "@/lib/services/comment";
 import { bindComments } from "./utils";
 import { useRouter } from "next/router";
 import { DocsPage, wikiPage } from "@/lib/constant";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 
 const Comment = () => {
   const router = useRouter();

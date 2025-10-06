@@ -5,8 +5,8 @@ import Profile from "@/components/Pages/Settings/Profile";
 import { useNotificationContext } from "@/components/Shared/Notification";
 
 import { updateUserProfile, updateUserProfileWithFormData, updateUser } from "@/lib/services/user";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
 import { useEffect, useState } from "react";
 import { useSessionContext } from "@/lib/context/session";
 

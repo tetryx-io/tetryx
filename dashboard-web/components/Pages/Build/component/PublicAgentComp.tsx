@@ -2,7 +2,7 @@
 import { Editor } from "@/components/Plate/components/plate-ui/editor";
 import { plugins } from "@/components/Plate/lib/plate/plate-plugins";
 import PromptField from "@/components/Prompt/prompt";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import { getTimeDifferenceString } from "@/lib/utils";
 import { gql, useQuery, useSubscription } from "@apollo/client";
 import { Plate } from "@udecode/plate-common";

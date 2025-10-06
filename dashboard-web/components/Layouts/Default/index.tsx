@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import Footer from "../Footer";
 import Header from "../Header";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
 import { useSessionContext } from "@/lib/context/session";
 
 const DefaultLayout = ({ children }) => {

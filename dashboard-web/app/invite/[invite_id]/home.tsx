@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 import { useRouter } from "next/navigation";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import { useNotificationContext } from "@/components/Shared/Notification";
 import { useSessionContext } from "@/lib/context/session";
 import InviteAcceptance from "./components/InviteAcceptance";

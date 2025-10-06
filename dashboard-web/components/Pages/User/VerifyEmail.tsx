@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import React, { useState, useEffect, Fragment } from "react";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import {
   error,
   success,
@@ -30,7 +30,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { LogoIcon, LogoLarge } from "@/components/Common/Logo";
 import axios_instance from "@/lib/services/request";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
 
 const BetaAccessCode = (props) => {
   const { user, show_resend_email, show_beta_access_input } = props;

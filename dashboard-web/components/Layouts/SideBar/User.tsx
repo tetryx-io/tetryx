@@ -5,8 +5,8 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { Float } from "@headlessui-float/react";
 import { Popover } from "@headlessui/react";
 
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 
 import _ from "lodash";
 

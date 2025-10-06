@@ -1,4 +1,4 @@
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth } from "@/lib/providers/auth";
 import { Dialog, Transition } from "@headlessui/react";
 import { ChangeEvent, useState, useEffect } from "react";
 import { RiAlertFill, RiCloseLine, RiLockLine, RiUser3Line } from "react-icons/ri";
@@ -7,7 +7,6 @@ import Input from "../Shared/Input";
 import PasswordInput from "../Shared/Input/PasswordInput";
 import { useParams, useRouter } from "next/navigation";
 import { ImSpinner8 } from "react-icons/im";
-import GoogleOneTapLogin from "@/components/Auth/oneTapSignIn";
 import { getRedirectUrl } from "@/lib/utils/auth";
 import Link from "next/link";
 
@@ -25,7 +24,7 @@ const GetEarlyAccessDialog = ({
   console.log("redirect_url", redirect_url);
 
   const [loading, setLoading] = useState(false);
-  const { emailPasswordLogin, googleLogin } = useSupabaseAuth();
+  const { signInWithPassword } = useTetryxAuth();
   const [auth, setAuth] = useState({
     email: "",
     password: "",
@@ -33,7 +32,6 @@ const GetEarlyAccessDialog = ({
   const [error, setError] = useState({
     email: "",
     password: "",
-    google: "",
     login: "",
   });
 
@@ -55,7 +53,6 @@ const GetEarlyAccessDialog = ({
     const newError = {
       email: email ? "" : "Email is required",
       password: password ? "" : "Password is required",
-      google: "",
       login: "",
     };
 
@@ -65,12 +62,7 @@ const GetEarlyAccessDialog = ({
     }
 
     setLoading(true);
-    const { status, message } = await emailPasswordLogin(auth).then((res) => {
-      console.log("‼️ res", res)
-      // await postAuthCall(user,chat_id_list);
-      
-      return res
-    });
+    const { status, message } = await signInWithPassword(auth);
 
     if (status && setShow) {
       setShow(false);
@@ -88,20 +80,6 @@ const GetEarlyAccessDialog = ({
     router.push(redirect_url);
   };
 
-  const handleGoogleLoginSuccess = (result) => {
-    console.log("Google login success", result);
-    setShow(false);
-    setLoading(false);
-    // Add any additional logic you need on successful login
-  };
-
-  const handleGoogleLoginError = (error) => {
-    console.error("Google login error", error);
-    setError({
-      ...error,
-      google: "Failed to sign in with Google"
-    });
-  };
 
   return (
     <Transition
@@ -141,27 +119,6 @@ const GetEarlyAccessDialog = ({
                 <div className="">
                   <h1 className="mb-2 font-bold text-2xl w-full">Sign in</h1>
                   <h6 className="text-neutral-500">Let's get you back in.</h6>
-                </div>
-                
-                <div className="flex flex-col items-center">
-                  <GoogleOneTapLogin
-                    onSuccess={handleGoogleLoginSuccess}
-                    onError={handleGoogleLoginError}
-                  />
-                  {error.google && (
-                      <div className="text-red-500 text-sm mt-1">{error.google}</div>
-                    )}
-                </div>
-
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-strong "></div>
-                  </div>
-                  <div className="relative flex justify-center text-sm text-neutral-400">
-                    <span className="px-2 flex gap-1 font-semibold uppercase bg-white">
-                      or
-                    </span>
-                  </div>
                 </div>
 
                 <div 

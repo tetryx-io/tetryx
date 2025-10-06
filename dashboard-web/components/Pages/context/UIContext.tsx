@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { get as _get, set as _set } from "lodash";
 import { uuidv7 } from "@kripod/uuidv7";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import { useNamespaceContext } from "@/components/Pages/context/workspace";
 
 const UIContext = createContext({});

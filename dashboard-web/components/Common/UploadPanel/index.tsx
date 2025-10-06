@@ -8,7 +8,7 @@ import _ from "lodash";
 import { Fragment } from "react";
 import { useSessionContext } from "@/lib/context/session";
 import DefaultButton from "@/components/Shared/Button/DefaultButton";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import axiosApiInstance from "@/lib/services/request";
 import { RiAttachment2, RiCloseCircleFill } from "react-icons/ri";
 import GetEarlyAccessDialog from "@/components/EarlyAccess/earlyAccess";

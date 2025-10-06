@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useMemo, useCallback } from "react";
 import { useSessionSubscription } from "@/generated/graphql";
 import { pick as _pick } from "lodash";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import SessionLoadingIndicator from "@/components/Common/SessionLoadingIndicator";
 

@@ -11,7 +11,7 @@ import Loader from "@/components/Common/AtriumLoader";
 import { getDataSets, getProjects, createStateData } from "@/lib/services";
 import { FetchProjectMembershipDocument } from "@/generated/graphql";
 import Image from "next/image";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 
 const Home = () => {
   const [projectOptions, setProjectOptions] = useState([]);

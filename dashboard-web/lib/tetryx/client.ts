@@ -55,7 +55,20 @@ class TetryxClient {
 
   private loadStoredSession() {
     if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('tetryx-session');
+      // Try to get session from localStorage first
+      let stored = localStorage.getItem('tetryx-session');
+
+      // If not in localStorage, try to get from cookies
+      if (!stored) {
+        const cookies = document.cookie.split(';');
+        const sessionCookie = cookies.find(cookie =>
+          cookie.trim().startsWith('tetryx-session=')
+        );
+        if (sessionCookie) {
+          stored = decodeURIComponent(sessionCookie.split('=')[1]);
+        }
+      }
+
       if (stored) {
         try {
           this.currentSession = JSON.parse(stored);
@@ -66,6 +79,7 @@ class TetryxClient {
         } catch (error) {
           console.error('Failed to parse stored session:', error);
           localStorage.removeItem('tetryx-session');
+          this.clearSessionCookie();
         }
       }
     }
@@ -73,9 +87,22 @@ class TetryxClient {
 
   private storeSession(session: Session) {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('tetryx-session', JSON.stringify(session));
+      const sessionData = JSON.stringify(session);
+      localStorage.setItem('tetryx-session', sessionData);
+
+      // Also set as cookie for middleware access
+      const maxAge = 60 * 60 * 24 * 7; // 7 days
+      document.cookie = `tetryx-session=${encodeURIComponent(sessionData)}; max-age=${maxAge}; path=/; SameSite=Lax${
+        window.location.protocol === 'https:' ? '; Secure' : ''
+      }`;
     }
     this.currentSession = session;
+  }
+
+  private clearSessionCookie() {
+    if (typeof window !== 'undefined') {
+      document.cookie = 'tetryx-session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
   }
 
   private async apiRequest(endpoint: string, options: RequestInit = {}) {
@@ -168,6 +195,7 @@ class TetryxClient {
       // Always clear local session
       if (typeof window !== 'undefined') {
         localStorage.removeItem('tetryx-session');
+        this.clearSessionCookie();
       }
       this.currentSession = null;
     }

@@ -17,9 +17,9 @@ import _ from "lodash";
 import OmniLink from "@/components/Shared/omnilink";
 import { MixIcon } from "@radix-ui/react-icons";
 import { getPageTreeTableOfContents, getPageTitle } from "@/lib/notion";
-import { useSupabaseAuth as useAuthUserContext } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useAuthUserContext } from "@/lib/providers/auth";
 import _get from "lodash/get";
-import { useSupabaseAuth } from "@/lib/supabase/provider/auth";
+import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
 
 const SearchButton = ({ onClick, onKeyDown }) => {
   const onKeyDownHandler = (e) => {

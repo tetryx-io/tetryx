@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import ansis from "ansis";
 import { red, black, inverse, reset } from "ansis/colors";
-import { updateSession } from '@/lib/supabase/middleware'
+import { updateSession } from '@/lib/tetryx/middleware'
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
