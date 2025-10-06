@@ -1,12 +1,12 @@
 { config, ... }:
 {
   flake.nixosModules = {
-    atticd = {
+    tetryxd = {
       imports = [
-        ../nixos/atticd.nix
+        ../nixos/tetryxd.nix
       ];
 
-      services.atticd.useFlakeCompatOverlay = false;
+      services.tetryxd.useFlakeCompatOverlay = false;
 
       nixpkgs.overlays = [
         config.flake.overlays.default

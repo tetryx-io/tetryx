@@ -105,7 +105,7 @@ in
 
         shellHook = ''
           >&2 echo
-          >&2 echo '🚀 Run `atticd` to get started!'
+          >&2 echo '🚀 Run `tetryxd` to get started!'
           >&2 echo
         '';
       };

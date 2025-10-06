@@ -111,7 +111,7 @@ in
               pkgs.dockerTools.fakeNss
             ];
             config = {
-              Entrypoint = [ "/bin/atticd" ];
+              Entrypoint = [ "/bin/tetryxd" ];
               Env = [
                 "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
               ];

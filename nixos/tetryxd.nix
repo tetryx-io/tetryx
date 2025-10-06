@@ -8,7 +8,7 @@
 let
   inherit (lib) types;
 
-  cfg = config.services.atticd;
+  cfg = config.services.tetryxd;
 
   # unused when the entrypoint is flake
   flake = import ../flake-compat.nix;
@@ -26,7 +26,7 @@ let
 
         export ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64="dGVzdCBzZWNyZXQ="
         export ATTIC_SERVER_DATABASE_URL="sqlite://:memory:"
-        ${cfg.package}/bin/atticd --mode check-config -f $configFile
+        ${cfg.package}/bin/tetryxd --mode check-config -f $configFile
         cat <$configFile >$out
       '';
 
@@ -38,10 +38,10 @@ let
       fi
     fi
 
-    exec ${cfg.package}/bin/atticadm -f ${checkedConfigFile} "$@"
+    exec ${cfg.package}/bin/tetryxadm -f ${checkedConfigFile} "$@"
   '';
 
-  atticadmWrapper = pkgs.writeShellScriptBin "atticd-atticadm" ''
+  atticadmWrapper = pkgs.writeShellScriptBin "tetryxd-tetryxadm" ''
     exec systemd-run \
       --quiet \
       --pipe \
@@ -72,14 +72,14 @@ let
 in
 {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "atticd" "credentialsFile" ] [ "services" "atticd" "environmentFile" ])
+    (lib.mkRenamedOptionModule [ "services" "tetryxd" "credentialsFile" ] [ "services" "tetryxd" "environmentFile" ])
   ];
 
-  disabledModules = [ "services/networking/atticd.nix" ];
+  disabledModules = [ "services/networking/tetryxd.nix" ];
 
   options = {
-    services.atticd = {
-      enable = lib.mkEnableOption "the atticd, the Nix Binary Cache server";
+    services.tetryxd = {
+      enable = lib.mkEnableOption "the tetryxd, the Tetryx Space Operations server";
 
       package = lib.mkPackageOption pkgs "tetryx-server" { };
 
@@ -100,7 +100,7 @@ in
           The user under which tetryx runs.
         '';
         type = types.str;
-        default = "atticd";
+        default = "tetryxd";
       };
 
       group = lib.mkOption {
@@ -108,12 +108,12 @@ in
           The group under which tetryx runs.
         '';
         type = types.str;
-        default = "atticd";
+        default = "tetryxd";
       };
 
       settings = lib.mkOption {
         description = ''
-          Structured configurations of atticd.
+          Structured configurations of tetryxd.
         '';
         type = format.type;
         default = { }; # setting defaults here does not compose well
@@ -121,13 +121,13 @@ in
 
       configFile = lib.mkOption {
         description = ''
-          Path to an existing atticd configuration file.
+          Path to an existing tetryxd configuration file.
 
-          By default, it's generated from `services.atticd.settings`.
+          By default, it's generated from `services.tetryxd.settings`.
         '';
         type = types.path;
         default = format.generate "server.toml" cfg.settings;
-        defaultText = "generated from `services.atticd.settings`";
+        defaultText = "generated from `services.tetryxd.settings`";
       };
 
       mode = lib.mkOption {
@@ -169,46 +169,46 @@ in
       {
         assertion = cfg.environmentFile != null;
         message = ''
-          <option>services.atticd.environmentFile</option> is not set.
+          <option>services.tetryxd.environmentFile</option> is not set.
 
           Run `openssl genrsa -traditional -out private_key.pem 4096 | base64 -w0` and create a file with the following contents:
 
           ATTIC_SERVER_TOKEN_RS256_SECRET="output from command"
 
-          Then, set `services.atticd.environmentFile` to the quoted absolute path of the file.
+          Then, set `services.tetryxd.environmentFile` to the quoted absolute path of the file.
         '';
       }
       {
         assertion = !lib.isStorePath cfg.environmentFile;
         message = ''
-          <option>services.atticd.environmentFile</option> points to a path in the Nix store. The Nix store is globally readable.
+          <option>services.tetryxd.environmentFile</option> points to a path in the Nix store. The Nix store is globally readable.
 
           You should use a quoted absolute path to prevent leaking secrets in the Nix store.
         '';
       }
     ];
 
-    services.atticd.settings = {
-      database.url = lib.mkDefault "sqlite:///var/lib/atticd/server.db?mode=rwc";
+    services.tetryxd.settings = {
+      database.url = lib.mkDefault "sqlite:///var/lib/tetryxd/server.db?mode=rwc";
 
       # "storage" is internally tagged
       # if the user sets something the whole thing must be replaced
       storage = lib.mkDefault {
         type = "local";
-        path = "/var/lib/atticd/storage";
+        path = "/var/lib/tetryxd/storage";
       };
     };
 
-    systemd.services.atticd = {
+    systemd.services.tetryxd = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ] ++ lib.optionals hasLocalPostgresDB [ "postgresql.service" ];
       requires = lib.optionals hasLocalPostgresDB [ "postgresql.service" ];
       wants = [ "network-online.target" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/atticd -f ${checkedConfigFile} --mode ${cfg.mode}";
+        ExecStart = "${cfg.package}/bin/tetryxd -f ${checkedConfigFile} --mode ${cfg.mode}";
         EnvironmentFile = cfg.environmentFile;
-        StateDirectory = "atticd"; # for usage with local storage and sqlite
+        StateDirectory = "tetryxd"; # for usage with local storage and sqlite
         DynamicUser = true;
         User = cfg.user;
         Group = cfg.group;
@@ -237,7 +237,7 @@ in
         ReadWritePaths =
           let
             path = cfg.settings.storage.path;
-            isDefaultStateDirectory = path == "/var/lib/atticd" || lib.hasPrefix "/var/lib/atticd/" path;
+            isDefaultStateDirectory = path == "/var/lib/tetryxd" || lib.hasPrefix "/var/lib/tetryxd/" path;
           in
           lib.optionals (cfg.settings.storage.type or "" == "local" && !isDefaultStateDirectory) [ path ];
         RemoveIPC = true;
