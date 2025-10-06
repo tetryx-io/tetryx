@@ -4,9 +4,9 @@ export const siteConfig = {
   url: "https://tetryx.io",
   domain: "tetryx.io",
   author: "Tetryx",
-  title: "Tetryx | Supabase for Space",
+  title: "Tetryx | Open Space & Autonomous Vehicle Stack",
   description:
-    "Tetryx provides a comprehensive space operations platform for managing Nix binary caches, monitoring system health, and controlling space mission artifacts.",
+    "Tetryx is the open source modular stack that enables defense, aerospace, and space companies to rapidly build and support hardware components, vehicles, and autonomous systems. This dashboard provides centralized management for cache operations and system monitoring.",
   image: "https://tetryx.io/images/tetryx-cover.png", //Update image
   favicon: "/favicon.ico",
   manifest: "/manifest.json"

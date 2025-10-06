@@ -1,22 +1,22 @@
 # Tetryx Dashboard
 
-## Supabase for Space - Space Operations Platform
+## Open Space & Autonomous Vehicle Stack - Administrative Interface
 
-A modern web dashboard for managing Tetryx cache operations, monitoring system health, and controlling space mission artifacts.
+A modern web dashboard for managing the Tetryx open source modular stack, providing centralized administration for defense, aerospace, and space companies building autonomous systems.
 
 ![Tetryx](https://tetryx.io/logo.svg)
 
 ## Overview
 
-Tetryx Dashboard is a Next.js-based web interface that provides comprehensive management capabilities for the Tetryx space operations platform. It enables mission operators to monitor cache performance, manage storage, and oversee binary artifact distribution for space missions.
+Tetryx Dashboard is a Next.js-based administrative interface for the Tetryx open source stack. It enables system administrators and mission operators to monitor cache performance, manage binary distributions, oversee hardware component deployments, and maintain system health across distributed autonomous vehicle networks.
 
 ## Features
 
-- **Cache Management**: View, create, and configure Nix binary caches
-- **System Monitoring**: Real-time statistics and health monitoring
-- **Storage Analytics**: Track storage usage and performance metrics
-- **Mission Control**: Manage space mission artifacts and dependencies
-- **User Management**: Handle authentication and permissions
+- **Binary Cache Management**: View, create, and configure Nix binary caches for autonomous systems
+- **System Monitoring**: Real-time statistics and health monitoring for mission-critical operations
+- **Hardware Component Tracking**: Monitor and manage distributed hardware deployments
+- **Mission Control Interface**: Centralized control for space missions and autonomous vehicle networks
+- **Administrative Controls**: Secure user management and system permissions for enterprise environments
 
 ## Tech Stack
 

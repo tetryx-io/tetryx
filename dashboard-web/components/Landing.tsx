@@ -1,13 +1,16 @@
 "use client";
 import { useRef, useState } from "react";
 import {
+  RiRocketFill,
+  RiCpuFill,
+  RiShieldStarFill,
+  RiSettings4Fill,
+  RiSpaceShipFill,
   RiDatabase2Fill,
-  RiRobot2Fill,
 } from "react-icons/ri";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import AgentCard from "@/components/Pages/Agent/component/AgentCard";
 import AtriumLinesGlow from "./Shared/AtriumGlow";
 import { useTetryxAuth as useSupabaseAuth } from "@/lib/providers/auth";
 
@@ -53,41 +56,40 @@ const Landing = ({ initialAgentData: agent_data }) => {
           className="col-span-2 grid grid-cols-12 gap-5"
         >
           <div className="col-span-full sm:col-span-10 lg:col-span-8">
-            <div className="hidden">Use AI agents to supercharge your research and find answers in minutes instead of hours</div>
+            <div className="hidden">Open modular stack for space, defense, and autonomous vehicle development</div>
 
             <div className="flex flex-wrap w-full gap-x-2.5 gap-y-5 lg:gap-x-4 lg:gap-y-7 items-center text-[26px] lg:text-[30px] xl:text-4xl 2xl:text-[40px] mb-2 font-epilogue font-semibold transition-all">
-              <span>Use</span>
-              <span className="text-[22px] lg:text-[27px] xl:text-3xl 2xl:text-[34px] flex items-center w-fit py-1 md:py-1.5 xl:py-2 px-3 gap-1.5 bg-violet-50/50 border border-violet-100 text-violet-700 rounded-lg transition-all hover:bg-violet-50">
-                <RiRobot2Fill className="opacity-80" size={20} />
-                AI agents
-              </span>
-              <span>to</span>
+              <span>Build</span>
               <span className="text-[22px] lg:text-[27px] xl:text-3xl 2xl:text-[34px] flex items-center w-fit py-1 md:py-1.5 xl:py-2 px-3 gap-1.5 bg-blue-50/50 border border-blue-100 text-blue-700 rounded-lg transition-all hover:bg-blue-50">
-                <RiDatabase2Fill className="opacity-80" size={20} />
-                supercharge
+                <RiRocketFill className="opacity-80" size={20} />
+                space
               </span>
-              <span>your</span>
-              <span>work</span>
+              <span>&</span>
+              <span className="text-[22px] lg:text-[27px] xl:text-3xl 2xl:text-[34px] flex items-center w-fit py-1 md:py-1.5 xl:py-2 px-3 gap-1.5 bg-purple-50/50 border border-purple-100 text-purple-700 rounded-lg transition-all hover:bg-purple-50">
+                <RiCpuFill className="opacity-80" size={20} />
+                autonomous
+              </span>
+              <span>systems</span>
             </div>
 
             <p className="text-neutral-600 mt-6 font-normal text-justify leading-relaxed xl:w-5/6">
-              Find exactly what you need with AI-powered research assistants. Our intelligent agents help you gather insights, analyze information, and answer complex questions in minutes instead of hours. Whether you're conducting market research, analyzing competitors, or gathering business intelligence - there's an agent ready to help.
+              Tetryx is the open source modular stack that enables defense, aerospace, and space companies to rapidly build and support hardware components, vehicles, and autonomous systems. Our platform provides the foundational tools for mission-critical operations, from satellite deployment to autonomous vehicle control systems.
             </p>
 
             <div className="flex mt-8 gap-6">
               {!session_id && (
-                <Link 
-                  href={"/auth/signup"} 
+                <Link
+                  href={"/auth/signup"}
                   className="flex h-11 text-lg items-center px-5 flex-none gradient-purple-1 text-white font-semibold rounded-md transition-colors"
                 >
-                  Get early access
+                  Access Dashboard
                 </Link>
               )}
-              <Link 
-                href={"/developers/"} 
+              <Link
+                href={"/developers/"}
                 className="hidden sm:flex h-11 text-lg items-center px-5 flex-none border-2 border-violet-600 text-violet-600 hover:bg-violet-50 font-semibold rounded-md transition-colors"
               >
-                Build your own
+                View Documentation
               </Link>
             </div>
           </div>
@@ -104,35 +106,109 @@ const Landing = ({ initialAgentData: agent_data }) => {
 
         </div>
 
-        <div className="col-span-2 w-full mt-6">
+        <div className="col-span-2 w-full mt-12">
           <div className="text-xl md:text-2xl font-semibold mb-6">
-            Try out these AI Agents
+            Core Stack Components
           </div>
 
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            {Array.isArray(agent_data) && agent_data.slice(0, 16).map((agent, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="w-full"
-              >
-                <AgentCard agent={agent} />
-              </motion.div>
-            ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-blue-50 rounded-lg">
+                  <RiDatabase2Fill className="text-blue-600" size={24} />
+                </div>
+                <h3 className="font-semibold text-lg">Binary Cache System</h3>
+              </div>
+              <p className="text-gray-600 text-sm">
+                High-performance Nix binary cache infrastructure for efficient artifact distribution and dependency management across mission-critical systems.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+              className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-purple-50 rounded-lg">
+                  <RiSettings4Fill className="text-purple-600" size={24} />
+                </div>
+                <h3 className="font-semibold text-lg">System Monitoring</h3>
+              </div>
+              <p className="text-gray-600 text-sm">
+                Real-time health monitoring and performance analytics for autonomous systems, providing critical insights for operational reliability.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.3 }}
+              className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-green-50 rounded-lg">
+                  <RiShieldStarFill className="text-green-600" size={24} />
+                </div>
+                <h3 className="font-semibold text-lg">Mission Control</h3>
+              </div>
+              <p className="text-gray-600 text-sm">
+                Centralized command and control interface for managing space missions, vehicle deployments, and autonomous system operations.
+              </p>
+            </motion.div>
           </motion.div>
         </div>
 
-        <div className="col-span-2 w-full mt-6">
+        <div className="col-span-2 w-full mt-16">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 md:p-12">
+            <div className="max-w-4xl">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">Administrative Dashboard</h2>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                This dashboard serves as the central administration interface for the Tetryx open source stack.
+                System administrators and mission operators can monitor cache performance, manage binary distributions,
+                oversee hardware component deployments, and maintain system health across distributed autonomous vehicle networks.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-blue-100 rounded-lg flex-shrink-0">
+                    <RiSpaceShipFill className="text-blue-600" size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2">Space Operations</h3>
+                    <p className="text-sm text-gray-600">Monitor satellite deployments, track mission artifacts, and manage space-grade hardware components.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-purple-100 rounded-lg flex-shrink-0">
+                    <RiShieldStarFill className="text-purple-600" size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2">Defense Systems</h3>
+                    <p className="text-sm text-gray-600">Secure cache management for defense applications with enterprise-grade monitoring and control.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-span-2 w-full mt-12">
           <div className="w-full sm:w-9/12 max-w-[960px]">
-            <div className="font-medium text-neutral-500 w-full">Built by a team from AI industry-leading organizations</div>
-            
+            <div className="font-medium text-neutral-500 w-full">Trusted by defense, aerospace, and space organizations</div>
+
             <div className="flex flex-wrap mt-6 w-full justify-start gap-x-16 gap-y-6 items-center">
               {founder_logos.map((src) => (
                 <Image
