@@ -2,21 +2,28 @@
 
 ## Open Space & Autonomous Vehicle Stack - Administrative Interface
 
-A modern web dashboard for managing the Tetryx open source modular stack, providing centralized administration for defense, aerospace, and space companies building autonomous systems.
+A modern web dashboard for managing the Tetryx open source modular stack that enables defense, aerospace, and space companies to rapidly build and support hardware components, vehicles, and autonomous systems.
 
 ![Tetryx](https://tetryx.io/logo.svg)
 
 ## Overview
 
-Tetryx Dashboard is a Next.js-based administrative interface for the Tetryx open source stack. It enables system administrators and mission operators to monitor cache performance, manage binary distributions, oversee hardware component deployments, and maintain system health across distributed autonomous vehicle networks.
+Tetryx Dashboard is a Next.js-based administrative interface for the Tetryx open source stack. This dashboard serves as the central command and control interface for managing complex operations including:
 
-## Features
+- **Binary Cache Management**: High-performance Nix binary cache infrastructure for mission-critical operations
+- **System Monitoring**: Real-time health monitoring and performance analytics for autonomous systems
+- **Mission Control**: Centralized interface for space missions, autonomous vehicle deployments, and defense system coordination
+- **Administrative Controls**: Secure user management with enterprise-grade security and reliability
 
-- **Binary Cache Management**: View, create, and configure Nix binary caches for autonomous systems
-- **System Monitoring**: Real-time statistics and health monitoring for mission-critical operations
-- **Hardware Component Tracking**: Monitor and manage distributed hardware deployments
-- **Mission Control Interface**: Centralized control for space missions and autonomous vehicle networks
-- **Administrative Controls**: Secure user management and system permissions for enterprise environments
+The platform is designed to support organizations ranging from defense contractors to aerospace companies to space operations, providing the foundational tools needed for autonomous system development and deployment.
+
+## Key Features
+
+- **Binary Cache Management**: Create, configure, and monitor Nix binary caches optimized for autonomous systems and space operations
+- **Real-time System Monitoring**: Performance analytics and health monitoring for mission-critical operations with predictive maintenance insights
+- **Mission Control Interface**: Centralized command and control for space missions, autonomous vehicle deployments, and defense system coordination
+- **Secure Authentication**: Enterprise-grade user management with JWT token authentication and role-based access control
+- **Modular Architecture**: Extensible platform supporting diverse use cases from satellite deployments to autonomous vehicle networks
 
 ## Tech Stack
 
@@ -30,9 +37,10 @@ Tetryx Dashboard is a Next.js-based administrative interface for the Tetryx open
 - **Type Safety**: TypeScript
 
 ### Backend Integration
-- **API**: Tetryx Server REST API (port 8080)
-- **Authentication**: JWT tokens
-- **Real-time Updates**: Server-sent events
+- **API**: Tetryx Server REST API (default port 8080)
+- **Authentication**: JWT token-based authentication with session management
+- **Real-time Updates**: Server-sent events for live system monitoring
+- **Cache Operations**: RESTful endpoints for binary cache management
 
 ### Development Tools
 - **Type Checking**: TypeScript
@@ -53,11 +61,11 @@ Create a `.env.local` file in the root directory:
 
 ```bash
 # Tetryx Server Configuration
-NEXT_PUBLIC_TETRYX_API_URL=http://localhost:8080
-NEXT_PUBLIC_DASHBOARD_PORT=3000
+NEXT_PUBLIC_TETRYX_URL=http://localhost:8080
+NEXT_PUBLIC_TETRYX_ANON_KEY=your-anon-key
 
-# Optional: Authentication
-TETRYX_JWT_SECRET=your-jwt-secret
+# Optional: Service Role Key for administrative operations
+TETRYX_SERVICE_ROLE_KEY=your-service-role-key
 ```
 
 ### Installation
@@ -97,12 +105,21 @@ npm start
 
 The dashboard communicates with the Tetryx server via REST API:
 
-- `GET /api/caches` - List all caches
-- `GET /api/stats` - System statistics
-- `POST /api/caches` - Create new cache
+### Authentication Endpoints
+- `POST /auth/login` - User authentication with email/password
+- `POST /auth/signup` - User registration
+- `POST /auth/logout` - User logout
+
+### Cache Management Endpoints
+- `GET /api/caches` - List all binary caches
+- `GET /api/caches/:name` - Get specific cache details
+- `POST /api/caches` - Create new binary cache
 - `DELETE /api/caches/:name` - Delete cache
 
-Authentication uses JWT tokens provided by the Tetryx server.
+### System Monitoring
+- `GET /api/stats` - System performance statistics and health metrics
+
+Authentication is handled via JWT tokens with both localStorage and cookie-based session management for SSR compatibility.
 
 ## Contributing
 
